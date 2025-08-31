@@ -92,7 +92,6 @@ void AL1Character::MoveRight(const FInputActionInstance& Instance)
 
 	this->AddMovementInput(this->GetActorRightVector(), Value);
 	FVector Result = GetActorRightVector() * Value;
-	UE_LOG(LogTemp, Warning, TEXT("ActorRightVector * Value = %s * %f = %s"), *GetActorRightVector().ToString(), Value, *Result.ToString());
 }
 
 void AL1Character::_Jump(const FInputActionInstance& Instance)
