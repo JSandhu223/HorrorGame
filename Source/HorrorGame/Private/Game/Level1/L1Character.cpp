@@ -51,6 +51,7 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(LookUpAction, ETriggerEvent::Triggered, this, &AL1Character::LookUp);
 		EnhancedInputComponent->BindAction(MoveForwardAction, ETriggerEvent::Triggered, this, &AL1Character::MoveForward);
 		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Triggered, this, &AL1Character::MoveRight);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AL1Character::_Jump);
 	}
 }
 
@@ -84,5 +85,10 @@ void AL1Character::MoveRight(const FInputActionInstance& Instance)
 	//UE_LOG(LogTemp, Warning, TEXT("MoveRight value: %f"), Value);
 
 	this->AddMovementInput(this->GetActorRightVector(), Value);
+}
+
+void AL1Character::_Jump(const FInputActionInstance& Instance)
+{
+	Jump();
 }
 

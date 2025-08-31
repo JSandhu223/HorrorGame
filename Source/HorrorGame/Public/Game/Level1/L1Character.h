@@ -27,6 +27,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* MoveRightAction;
 
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* JumpAction;
+
 	void LookRight(const struct FInputActionInstance& Instance);
 
 	void LookUp(const struct FInputActionInstance& Instance);
@@ -34,6 +37,8 @@ private:
 	void MoveForward(const struct FInputActionInstance& Instance);
 
 	void MoveRight(const struct FInputActionInstance& Instance);
+
+	void _Jump(const struct FInputActionInstance& Instance);
 
 public:
 	// Sets default values for this character's properties
