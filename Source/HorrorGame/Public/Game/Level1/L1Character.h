@@ -16,7 +16,7 @@ private:
 	class AHGPlayerController* HGPlayerController;
 
 private:
-	AActor* LineTrace(float Length);
+	AActor* LineTrace(float Length, bool bDrawLine);
 
 public:
 	// Sets default values for this character's properties
