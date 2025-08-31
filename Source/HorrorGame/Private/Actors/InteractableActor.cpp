@@ -2,6 +2,9 @@
 
 
 #include "Actors/InteractableActor.h"
+#include "Game/Level1/L1Character.h"
+#include "Kismet/GameplayStatics.h"
+
 
 // Sets default values
 AInteractableActor::AInteractableActor()
@@ -16,6 +19,13 @@ void AInteractableActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	PlayerRef = Cast<AL1Character>(UGameplayStatics::GetPlayerCharacter(this, 0));
+	if (!IsValid(PlayerRef))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("AInteractableActor: failed to cast PlayerRef to AL1Character"));
+		return;
+	}
+	UE_LOG(LogTemp, Warning, TEXT("AInteractableActor PlayerRef: %s"), *PlayerRef->GetName());
 }
 
 // Called every frame
