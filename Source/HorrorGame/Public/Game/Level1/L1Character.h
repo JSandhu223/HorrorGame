@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Interfaces/Interactable.h"
 #include "L1Character.generated.h"
 
 UCLASS()
@@ -16,6 +17,10 @@ private:
 
 private:
 	AActor* LineTrace(float Length);
+
+public:
+	// Sets default values for this character's properties
+	AL1Character();
 
 // Input Actions
 private:
@@ -48,10 +53,6 @@ private:
 	void _Jump(const struct FInputActionInstance& Instance);
 
 	void Use(const struct FInputActionInstance& Instance);
-
-public:
-	// Sets default values for this character's properties
-	AL1Character();
 
 protected:
 	// Called when the game starts or when spawned

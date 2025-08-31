@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputComponent.h"
 #include "Game/HGPlayerController.h"
+#include "Actors/InteractableActor.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 
@@ -128,6 +129,13 @@ void AL1Character::_Jump(const FInputActionInstance& Instance)
 
 void AL1Character::Use(const FInputActionInstance& Instance)
 {
-	LineTrace(350.0f);
+	AActor* HitActor = LineTrace(350.0f);
+	if (IsValid(HitActor) && HitActor->Implements<UInteractable>())
+	{
+		AInteractableActor* InteractableActor = Cast<AInteractableActor>(HitActor);
+		if (IsValid(InteractableActor))
+		{
+			InteractableActor->Interact();
+		}
+	}
 }
-
