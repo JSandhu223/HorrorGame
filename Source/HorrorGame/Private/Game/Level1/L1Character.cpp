@@ -7,6 +7,8 @@
 #include "Game/HGPlayerController.h"
 #include "Actors/InteractableActor.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "UMG/MainHUD.h"
+#include "Blueprint/UserWidget.h"
 
 
 // Sets default values
@@ -31,6 +33,8 @@ void AL1Character::BeginPlay()
 	Super::BeginPlay();
 
 	HGPlayerController = this->GetController<AHGPlayerController>();
+
+	Initialize();
 }
 
 // Called every frame
@@ -42,7 +46,15 @@ void AL1Character::Tick(float DeltaTime)
 
 void AL1Character::Initialize()
 {
+	if (IsValid(MainHUDClass))
+	{
+		MainHUDInstance = CreateWidget<UMainHUD>(GetWorld(), MainHUDClass);
 
+		if (IsValid(MainHUDInstance))
+		{
+			MainHUDInstance->AddToViewport();
+		}
+	}
 }
 
 AActor* AL1Character::LineTrace(float Length, bool bDrawLine)

@@ -13,5 +13,5 @@ UCLASS()
 class HORRORGAME_API UMainHUD : public UUserWidget
 {
 	GENERATED_BODY()
-	
+
 };

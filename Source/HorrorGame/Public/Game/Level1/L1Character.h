@@ -15,6 +15,12 @@ class HORRORGAME_API AL1Character : public ACharacter
 private:
 	class AHGPlayerController* HGPlayerController;
 
+	// This will be set to WBP_MainHUD in the editor
+	UPROPERTY(EditAnywhere, Category = "HUD")
+	TSubclassOf<class UMainHUD> MainHUDClass;
+
+	class UMainHUD* MainHUDInstance;
+
 private:
 	void Initialize();
 
