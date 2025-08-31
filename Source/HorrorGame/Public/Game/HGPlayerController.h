@@ -13,5 +13,13 @@ UCLASS()
 class HORRORGAME_API AHGPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
+
+protected:
+	virtual void BeginPlay() override;
+
+	virtual void SetupInputComponent() override;
+
+protected:
+	UPROPERTY(EditAnywhere, Category = "Enhanced Input")
+	class UInputMappingContext* PlayerContext;
 };
