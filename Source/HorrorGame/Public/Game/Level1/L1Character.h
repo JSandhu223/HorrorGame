@@ -11,6 +11,35 @@ class HORRORGAME_API AL1Character : public ACharacter
 {
 	GENERATED_BODY()
 
+private:
+	class AHGPlayerController* HGPlayerController;
+
+private:
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* LookRightAction;
+
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* LookUpAction;
+
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* MoveForwardAction;
+
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* MoveRightAction;
+
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* JumpAction;
+
+	void LookRight(const struct FInputActionInstance& Instance);
+
+	void LookUp(const struct FInputActionInstance& Instance);
+
+	void MoveForward(const struct FInputActionInstance& Instance);
+
+	void MoveRight(const struct FInputActionInstance& Instance);
+
+	void _Jump(const struct FInputActionInstance& Instance);
+
 public:
 	// Sets default values for this character's properties
 	AL1Character();
@@ -21,6 +50,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	class UCameraComponent* CameraComp;
+
+	// This will point to the default character movement component on the Character class
+	class UCharacterMovementComponent* MovementComp;
 
 public:	
 	// Called every frame

@@ -2,4 +2,39 @@
 
 
 #include "Game/HGPlayerController.h"
+#include "EnhancedInputSubsystems.h"
 
+
+AHGPlayerController::AHGPlayerController()
+{
+	LookSensitivity = 0.8f;
+}
+
+void AHGPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+
+
+}
+
+void AHGPlayerController::SetupInputComponent()
+{
+	Super::SetupInputComponent();
+
+	if (ULocalPlayer* LocalPlayer = this->GetLocalPlayer())
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
+		{
+			if (PlayerContext)
+			{
+				Subsystem->AddMappingContext(PlayerContext, 0);
+			}
+		}
+	}
+
+}
+
+float AHGPlayerController::GetLookSensitivity()
+{
+	return this->LookSensitivity;
+}

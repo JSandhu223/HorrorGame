@@ -3,6 +3,9 @@
 
 #include "Game/Level1/L1Character.h"
 #include "Camera/CameraComponent.h"
+#include "EnhancedInputComponent.h"
+#include "Game/HGPlayerController.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 // Sets default values
@@ -11,15 +14,22 @@ AL1Character::AL1Character()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	bUseControllerRotationYaw = true;
+	bUseControllerRotationPitch = true;
+
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComp->SetupAttachment(this->RootComponent);
+
+	MovementComp = GetComponentByClass<UCharacterMovementComponent>();
+	MovementComp->MaxWalkSpeed = 600.0f;
 }
 
 // Called when the game starts or when spawned
 void AL1Character::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	HGPlayerController = this->GetController<AHGPlayerController>();
 }
 
 // Called every frame
@@ -34,5 +44,59 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+	if (IsValid(EnhancedInputComponent))
+	{
+		EnhancedInputComponent->BindAction(LookRightAction, ETriggerEvent::Triggered, this, &AL1Character::LookRight);
+		EnhancedInputComponent->BindAction(LookUpAction, ETriggerEvent::Triggered, this, &AL1Character::LookUp);
+		EnhancedInputComponent->BindAction(MoveForwardAction, ETriggerEvent::Triggered, this, &AL1Character::MoveForward);
+		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Triggered, this, &AL1Character::MoveRight);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AL1Character::_Jump);
+	}
+}
+
+void AL1Character::LookRight(const FInputActionInstance& Instance)
+{
+	float Value =  Instance.GetValue().Get<float>();
+	//UE_LOG(LogTemp, Warning, TEXT("LookRight value: %f"), Value);
+
+	this->AddControllerYawInput(Value * HGPlayerController->GetLookSensitivity());
+}
+
+void AL1Character::LookUp(const FInputActionInstance& Instance)
+{
+	float Value = Instance.GetValue().Get<float>();
+	//UE_LOG(LogTemp, Warning, TEXT("LookUp value: %f"), Value);
+
+	this->AddControllerPitchInput(Value * HGPlayerController->GetLookSensitivity());
+}
+
+void AL1Character::MoveForward(const FInputActionInstance& Instance)
+{
+	float Value = Instance.GetValue().Get<float>();
+	//UE_LOG(LogTemp, Warning, TEXT("MoveForward value: %f"), Value);
+
+	// We want the forward and backward movement to be independent of the player's yaw (z-axis direction).
+	// Get the actor's forward vector, zero out the Z component, and normalize.
+	// This ensures the character's does not move slower when they walk while looking up or down.
+	FVector Forward = this->GetActorForwardVector();
+	Forward.Z = 0.0f;
+	Forward.Normalize();
+	this->AddMovementInput(Forward, Value);
+}
+
+void AL1Character::MoveRight(const FInputActionInstance& Instance)
+{
+	float Value = Instance.GetValue().Get<float>();
+	//UE_LOG(LogTemp, Warning, TEXT("MoveRight value: %f"), Value);
+
+	this->AddMovementInput(this->GetActorRightVector(), Value);
+	FVector Result = GetActorRightVector() * Value;
+	UE_LOG(LogTemp, Warning, TEXT("ActorRightVector * Value = %s * %f = %s"), *GetActorRightVector().ToString(), Value, *Result.ToString());
+}
+
+void AL1Character::_Jump(const FInputActionInstance& Instance)
+{
+	Jump();
 }
 
