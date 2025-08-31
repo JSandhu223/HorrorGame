@@ -53,7 +53,7 @@ void AL1Character::LookRight(const FInputActionInstance& Instance)
 	float Value =  Instance.GetValue().Get<float>();
 	// UE_LOG(LogTemp, Warning, TEXT("LookRight value: %f"), Value);
 
-	this->AddControllerYawInput(Value);
+	this->AddControllerYawInput(Value * HGPlayerController->GetLookSensitivity());
 }
 
 void AL1Character::LookUp(const FInputActionInstance& Instance)
@@ -61,6 +61,6 @@ void AL1Character::LookUp(const FInputActionInstance& Instance)
 	float Value = Instance.GetValue().Get<float>();
 	// UE_LOG(LogTemp, Warning, TEXT("LookUp value: %f"), Value);
 
-	this->AddControllerPitchInput(Value);
+	this->AddControllerPitchInput(Value * HGPlayerController->GetLookSensitivity());
 }
 

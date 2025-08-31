@@ -7,7 +7,7 @@
 
 AHGPlayerController::AHGPlayerController()
 {
-	LookSensitivity = 0.4f;
+	LookSensitivity = 0.8f;
 }
 
 void AHGPlayerController::BeginPlay()
