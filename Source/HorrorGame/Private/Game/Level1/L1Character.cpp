@@ -76,7 +76,13 @@ void AL1Character::MoveForward(const FInputActionInstance& Instance)
 	float Value = Instance.GetValue().Get<float>();
 	//UE_LOG(LogTemp, Warning, TEXT("MoveForward value: %f"), Value);
 
-	this->AddMovementInput(this->GetActorForwardVector(), Value);
+	// We want the forward and backward movement to be independent of the player's yaw (z-axis direction).
+	// Get the actor's forward vector, zero out the Z component, and normalize.
+	// This ensures the character's does not move slower when they walk while looking up or down.
+	FVector Forward = this->GetActorForwardVector();
+	Forward.Z = 0.0f;
+	Forward.Normalize();
+	this->AddMovementInput(Forward, Value);
 }
 
 void AL1Character::MoveRight(const FInputActionInstance& Instance)
@@ -85,6 +91,8 @@ void AL1Character::MoveRight(const FInputActionInstance& Instance)
 	//UE_LOG(LogTemp, Warning, TEXT("MoveRight value: %f"), Value);
 
 	this->AddMovementInput(this->GetActorRightVector(), Value);
+	FVector Result = GetActorRightVector() * Value;
+	UE_LOG(LogTemp, Warning, TEXT("ActorRightVector * Value = %s * %f = %s"), *GetActorRightVector().ToString(), Value, *Result.ToString());
 }
 
 void AL1Character::_Jump(const FInputActionInstance& Instance)
