@@ -12,6 +12,9 @@ class HORRORGAME_API AL1Character : public ACharacter
 	GENERATED_BODY()
 
 private:
+	class AHGPlayerController* HGPlayerController;
+
+private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* LookRightAction;
 

@@ -4,6 +4,7 @@
 #include "Game/Level1/L1Character.h"
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputComponent.h"
+#include "Game/HGPlayerController.h"
 
 
 // Sets default values
@@ -23,7 +24,8 @@ AL1Character::AL1Character()
 void AL1Character::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	HGPlayerController = this->GetController<AHGPlayerController>();
 }
 
 // Called every frame

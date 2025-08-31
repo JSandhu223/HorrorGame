@@ -5,6 +5,11 @@
 #include "EnhancedInputSubsystems.h"
 
 
+AHGPlayerController::AHGPlayerController()
+{
+	LookSensitivity = 0.4f;
+}
+
 void AHGPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -27,4 +32,9 @@ void AHGPlayerController::SetupInputComponent()
 		}
 	}
 
+}
+
+float AHGPlayerController::GetLookSensitivity()
+{
+	return this->LookSensitivity;
 }

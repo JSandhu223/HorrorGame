@@ -14,6 +14,15 @@ class HORRORGAME_API AHGPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
+private:
+	UPROPERTY(EditAnywhere, Category = "LookSensitivity")
+	float LookSensitivity;
+
+public:
+	AHGPlayerController();
+
+	float GetLookSensitivity();
+
 protected:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputMappingContext* PlayerContext;
