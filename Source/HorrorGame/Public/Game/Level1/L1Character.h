@@ -15,7 +15,7 @@ private:
 	class AHGPlayerController* HGPlayerController;
 
 private:
-	void LineTrace(float Length);
+	AActor* LineTrace(float Length);
 
 // Input Actions
 private:

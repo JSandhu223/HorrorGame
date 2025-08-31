@@ -39,7 +39,7 @@ void AL1Character::Tick(float DeltaTime)
 
 }
 
-void AL1Character::LineTrace(float Length)
+AActor* AL1Character::LineTrace(float Length)
 {
 	FHitResult OutHit;
 	FVector TraceStart = CameraComp->GetComponentLocation();
@@ -61,6 +61,8 @@ void AL1Character::LineTrace(float Length)
 		0,
 		0.25f
 	);
+
+	return OutHit.GetActor();
 }
 
 // Called to bind functionality to input
