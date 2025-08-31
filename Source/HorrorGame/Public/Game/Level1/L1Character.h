@@ -16,6 +16,8 @@ private:
 	class AHGPlayerController* HGPlayerController;
 
 private:
+	void Initialize();
+
 	AActor* LineTrace(float Length, bool bDrawLine);
 
 public:

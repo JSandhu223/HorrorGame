@@ -40,6 +40,11 @@ void AL1Character::Tick(float DeltaTime)
 
 }
 
+void AL1Character::Initialize()
+{
+
+}
+
 AActor* AL1Character::LineTrace(float Length, bool bDrawLine)
 {
 	FHitResult OutHit;
