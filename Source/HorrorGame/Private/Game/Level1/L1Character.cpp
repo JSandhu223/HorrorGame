@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputComponent.h"
 #include "Game/HGPlayerController.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 // Sets default values
@@ -18,6 +19,8 @@ AL1Character::AL1Character()
 
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComp->SetupAttachment(this->RootComponent);
+
+	MovementComp = GetComponentByClass<UCharacterMovementComponent>();
 }
 
 // Called when the game starts or when spawned

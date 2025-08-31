@@ -46,6 +46,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 	class UCameraComponent* CameraComp;
 
+	// This will point to the default character movement component on the Character class
+	class UCharacterMovementComponent* MovementComp;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
