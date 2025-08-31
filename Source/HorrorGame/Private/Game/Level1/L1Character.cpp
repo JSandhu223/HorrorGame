@@ -21,6 +21,7 @@ AL1Character::AL1Character()
 	CameraComp->SetupAttachment(this->RootComponent);
 
 	MovementComp = GetComponentByClass<UCharacterMovementComponent>();
+	MovementComp->MaxWalkSpeed = 600.0f;
 }
 
 // Called when the game starts or when spawned
