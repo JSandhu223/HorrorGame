@@ -11,6 +11,13 @@ class HORRORGAME_API AL1Character : public ACharacter
 {
 	GENERATED_BODY()
 
+private:
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* LookRightAction;
+
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* LookUpAction;
+
 public:
 	// Sets default values for this character's properties
 	AL1Character();

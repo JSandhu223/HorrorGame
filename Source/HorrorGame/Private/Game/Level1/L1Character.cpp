@@ -3,6 +3,7 @@
 
 #include "Game/Level1/L1Character.h"
 #include "Camera/CameraComponent.h"
+#include "EnhancedInputComponent.h"
 
 
 // Sets default values
@@ -34,5 +35,10 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+	if (IsValid(EnhancedInputComponent))
+	{
+		// Bind input actions to our own custom functions
+	}
 }
 
