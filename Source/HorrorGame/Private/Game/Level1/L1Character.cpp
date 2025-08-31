@@ -45,13 +45,15 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	{
 		EnhancedInputComponent->BindAction(LookRightAction, ETriggerEvent::Triggered, this, &AL1Character::LookRight);
 		EnhancedInputComponent->BindAction(LookUpAction, ETriggerEvent::Triggered, this, &AL1Character::LookUp);
+		EnhancedInputComponent->BindAction(MoveForwardAction, ETriggerEvent::Triggered, this, &AL1Character::MoveForward);
+		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Triggered, this, &AL1Character::MoveRight);
 	}
 }
 
 void AL1Character::LookRight(const FInputActionInstance& Instance)
 {
 	float Value =  Instance.GetValue().Get<float>();
-	// UE_LOG(LogTemp, Warning, TEXT("LookRight value: %f"), Value);
+	//UE_LOG(LogTemp, Warning, TEXT("LookRight value: %f"), Value);
 
 	this->AddControllerYawInput(Value * HGPlayerController->GetLookSensitivity());
 }
@@ -59,8 +61,20 @@ void AL1Character::LookRight(const FInputActionInstance& Instance)
 void AL1Character::LookUp(const FInputActionInstance& Instance)
 {
 	float Value = Instance.GetValue().Get<float>();
-	// UE_LOG(LogTemp, Warning, TEXT("LookUp value: %f"), Value);
+	//UE_LOG(LogTemp, Warning, TEXT("LookUp value: %f"), Value);
 
 	this->AddControllerPitchInput(Value * HGPlayerController->GetLookSensitivity());
+}
+
+void AL1Character::MoveForward(const FInputActionInstance& Instance)
+{
+	float Value = Instance.GetValue().Get<float>();
+	UE_LOG(LogTemp, Warning, TEXT("MoveForward value: %f"), Value);
+}
+
+void AL1Character::MoveRight(const FInputActionInstance& Instance)
+{
+	float Value = Instance.GetValue().Get<float>();
+	UE_LOG(LogTemp, Warning, TEXT("MoveRight value: %f"), Value);
 }
 
