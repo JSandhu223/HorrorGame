@@ -78,6 +78,7 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(MoveForwardAction, ETriggerEvent::Triggered, this, &AL1Character::MoveForward);
 		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Triggered, this, &AL1Character::MoveRight);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AL1Character::_Jump);
+		EnhancedInputComponent->BindAction(UseAction, ETriggerEvent::Triggered, this, &AL1Character::Use);
 	}
 }
 
@@ -123,5 +124,10 @@ void AL1Character::MoveRight(const FInputActionInstance& Instance)
 void AL1Character::_Jump(const FInputActionInstance& Instance)
 {
 	Jump();
+}
+
+void AL1Character::Use(const FInputActionInstance& Instance)
+{
+	LineTrace(350.0f);
 }
 
