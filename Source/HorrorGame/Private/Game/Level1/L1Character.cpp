@@ -69,12 +69,16 @@ void AL1Character::LookUp(const FInputActionInstance& Instance)
 void AL1Character::MoveForward(const FInputActionInstance& Instance)
 {
 	float Value = Instance.GetValue().Get<float>();
-	UE_LOG(LogTemp, Warning, TEXT("MoveForward value: %f"), Value);
+	//UE_LOG(LogTemp, Warning, TEXT("MoveForward value: %f"), Value);
+
+	this->AddMovementInput(this->GetActorForwardVector(), Value);
 }
 
 void AL1Character::MoveRight(const FInputActionInstance& Instance)
 {
 	float Value = Instance.GetValue().Get<float>();
-	UE_LOG(LogTemp, Warning, TEXT("MoveRight value: %f"), Value);
+	//UE_LOG(LogTemp, Warning, TEXT("MoveRight value: %f"), Value);
+
+	this->AddMovementInput(this->GetActorRightVector(), Value);
 }
 
