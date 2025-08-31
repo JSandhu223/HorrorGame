@@ -46,5 +46,7 @@ void AL1Character::LookRight(const FInputActionInstance& Instance)
 {
 	float Value =  Instance.GetValue().Get<float>();
 	UE_LOG(LogTemp, Warning, TEXT("LookRight value: %f"), Value);
+
+	this->AddControllerYawInput(Value);
 }
 
