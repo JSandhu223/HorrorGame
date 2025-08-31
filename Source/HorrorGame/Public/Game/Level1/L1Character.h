@@ -20,6 +20,8 @@ private:
 
 	void LookRight(const struct FInputActionInstance& Instance);
 
+	void LookUp(const struct FInputActionInstance& Instance);
+
 public:
 	// Sets default values for this character's properties
 	AL1Character();

@@ -12,6 +12,8 @@ AL1Character::AL1Character()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	bUseControllerRotationPitch = true;
+
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComp->SetupAttachment(this->RootComponent);
 }
@@ -39,14 +41,23 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	if (IsValid(EnhancedInputComponent))
 	{
 		EnhancedInputComponent->BindAction(LookRightAction, ETriggerEvent::Triggered, this, &AL1Character::LookRight);
+		EnhancedInputComponent->BindAction(LookUpAction, ETriggerEvent::Triggered, this, &AL1Character::LookUp);
 	}
 }
 
 void AL1Character::LookRight(const FInputActionInstance& Instance)
 {
 	float Value =  Instance.GetValue().Get<float>();
-	UE_LOG(LogTemp, Warning, TEXT("LookRight value: %f"), Value);
+	// UE_LOG(LogTemp, Warning, TEXT("LookRight value: %f"), Value);
 
 	this->AddControllerYawInput(Value);
+}
+
+void AL1Character::LookUp(const FInputActionInstance& Instance)
+{
+	float Value = Instance.GetValue().Get<float>();
+	// UE_LOG(LogTemp, Warning, TEXT("LookUp value: %f"), Value);
+
+	this->AddControllerPitchInput(Value);
 }
 
