@@ -38,7 +38,13 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 	if (IsValid(EnhancedInputComponent))
 	{
-		// Bind input actions to our own custom functions
+		EnhancedInputComponent->BindAction(LookRightAction, ETriggerEvent::Triggered, this, &AL1Character::LookRight);
 	}
+}
+
+void AL1Character::LookRight(const FInputActionInstance& Instance)
+{
+	float Value =  Instance.GetValue().Get<float>();
+	UE_LOG(LogTemp, Warning, TEXT("LookRight value: %f"), Value);
 }
 

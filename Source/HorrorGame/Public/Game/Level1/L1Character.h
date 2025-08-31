@@ -18,6 +18,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* LookUpAction;
 
+	void LookRight(const struct FInputActionInstance& Instance);
+
 public:
 	// Sets default values for this character's properties
 	AL1Character();
