@@ -39,6 +39,30 @@ void AL1Character::Tick(float DeltaTime)
 
 }
 
+void AL1Character::LineTrace(float Length)
+{
+	FHitResult OutHit;
+	FVector TraceStart = CameraComp->GetComponentLocation();
+	FVector TraceEnd = TraceStart + (CameraComp->GetForwardVector() * Length);
+	GetWorld()->LineTraceSingleByChannel(
+		OutHit,
+		TraceStart,
+		TraceEnd,
+		ECollisionChannel::ECC_Visibility
+	);
+
+	DrawDebugLine(
+		GetWorld(),
+		TraceStart,
+		TraceEnd,
+		OutHit.bBlockingHit ? FColor::Green : FColor::Red,
+		false,
+		5.0f,
+		0,
+		0.25f
+	);
+}
+
 // Called to bind functionality to input
 void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {

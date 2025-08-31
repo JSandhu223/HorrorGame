@@ -15,6 +15,10 @@ private:
 	class AHGPlayerController* HGPlayerController;
 
 private:
+	void LineTrace(float Length);
+
+// Input Actions
+private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* LookRightAction;
 
