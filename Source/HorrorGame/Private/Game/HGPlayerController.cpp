@@ -2,4 +2,5 @@
 
 
 #include "Game/HGPlayerController.h"
+#include "EnhancedInputComponent.h"
 
