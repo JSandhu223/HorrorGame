@@ -14,3 +14,8 @@ AInteractableDoor::AInteractableDoor()
 		DoorMesh->SetupAttachment(DoorFrame);
 	}
 }
+
+void AInteractableDoor::Interact()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Interacting with door!"));
+}

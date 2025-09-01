@@ -22,4 +22,5 @@ private:
 public:
 	AInteractableDoor();
 	
+	virtual void Interact() override;
 };
