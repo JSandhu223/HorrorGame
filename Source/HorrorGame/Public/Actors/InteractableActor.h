@@ -14,6 +14,12 @@ class HORRORGAME_API AInteractableActor : public AActor, public IInteractable
 
 private:
 	class AL1Character* PlayerRef;
+
+	UPROPERTY(VisibleAnywhere)
+	class USceneComponent* SceneRoot;
+
+	UPROPERTY(VisibleAnywhere)
+	class UStaticMeshComponent* StaticMesh;
 	
 public:	
 	// Sets default values for this actor's properties
