@@ -18,6 +18,8 @@ class HORRORGAME_API AInteractableDoor : public AInteractableActor
 private:
 	bool bIsDoorClosed;
 
+	float DotProduct;
+
 	// This will be attached to the inherited mesh, which we'll set to be the doorframe
 	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* DoorMesh;
@@ -29,10 +31,10 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Timeline")
 	class UCurveFloat* DoorTimelineFloatCurve;
 
-	//Float Track Signature to handle our update track event
+	// Float Track Signature to handle our update track event
 	FOnTimelineFloat UpdateFunctionFloat;
 
-	//Function which updates our Door's relative location with the timeline graph
+	// Function which updates our Door's relative location with the timeline graph
 	UFUNCTION()
 	void UpdateTimelineComp(float Output);
 

@@ -4,6 +4,9 @@
 #include "Actors/InteractableDoor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Curves/CurveFloat.h"
+#include "Actors/InteractableActor.h"
+#include "Game/Level1/L1Character.h"
+#include "Kismet/KismetMathLibrary.h"
 
 
 AInteractableDoor::AInteractableDoor()
@@ -34,15 +37,20 @@ void AInteractableDoor::BeginPlay()
 }
 
 void AInteractableDoor::UpdateTimelineComp(float Output)
-{
-	// Create and set our Door's new relative location based on the output from our Timeline Curve
-	FRotator DoorNewRotation = FRotator(0.0f, Output, 0.f);
+{	
+	FRotator DoorNewRotation = FRotator(0.0f, Output, 0.0f);
 	DoorMesh->SetRelativeRotation(DoorNewRotation);
+
+	UE_LOG(LogTemp, Warning, TEXT("Output: %f"), Output);
 }
 
 void AInteractableDoor::Interact()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Interacting with door!"));
+
+	FVector Distance = this->GetActorLocation() - PlayerRef->GetActorLocation();
+	DotProduct = FVector::DotProduct(this->GetActorForwardVector(), UKismetMathLibrary::Normal(Distance));
+	UE_LOG(LogTemp, Warning, TEXT("DotProduct: %f"), DotProduct);
 	
 	if (bIsDoorClosed)
 	{
