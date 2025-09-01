@@ -13,13 +13,14 @@ class HORRORGAME_API AInteractableActor : public AActor, public IInteractable
 	GENERATED_BODY()
 
 private:
-	class AL1Character* PlayerRef;
-
 	UPROPERTY(VisibleAnywhere)
 	class USceneComponent* SceneRoot;
 
 	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* StaticMesh;
+
+protected:
+	class AL1Character* PlayerRef;
 	
 public:	
 	// Sets default values for this actor's properties
