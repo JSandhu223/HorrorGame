@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Interfaces/Interactable.h"
 #include "L1Character.generated.h"
 
 UCLASS()
@@ -14,6 +15,22 @@ class HORRORGAME_API AL1Character : public ACharacter
 private:
 	class AHGPlayerController* HGPlayerController;
 
+	// This will be set to WBP_MainHUD in the editor
+	UPROPERTY(EditAnywhere, Category = "HUD")
+	TSubclassOf<class UMainHUD> MainHUDClass;
+
+	class UMainHUD* MainHUDInstance;
+
+private:
+	void Initialize();
+
+	AActor* LineTrace(float Length, bool bDrawLine);
+
+public:
+	// Sets default values for this character's properties
+	AL1Character();
+
+// Input Actions
 private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* LookRightAction;
@@ -30,6 +47,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* JumpAction;
 
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* UseAction;
+
 	void LookRight(const struct FInputActionInstance& Instance);
 
 	void LookUp(const struct FInputActionInstance& Instance);
@@ -40,9 +60,7 @@ private:
 
 	void _Jump(const struct FInputActionInstance& Instance);
 
-public:
-	// Sets default values for this character's properties
-	AL1Character();
+	void Use(const struct FInputActionInstance& Instance);
 
 protected:
 	// Called when the game starts or when spawned

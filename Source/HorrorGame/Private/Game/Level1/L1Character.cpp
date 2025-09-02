@@ -5,7 +5,10 @@
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputComponent.h"
 #include "Game/HGPlayerController.h"
+#include "Actors/InteractableActor.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "UMG/MainHUD.h"
+#include "Blueprint/UserWidget.h"
 
 
 // Sets default values
@@ -30,6 +33,8 @@ void AL1Character::BeginPlay()
 	Super::BeginPlay();
 
 	HGPlayerController = this->GetController<AHGPlayerController>();
+
+	Initialize();
 }
 
 // Called every frame
@@ -37,6 +42,48 @@ void AL1Character::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void AL1Character::Initialize()
+{
+	if (IsValid(MainHUDClass))
+	{
+		MainHUDInstance = CreateWidget<UMainHUD>(GetWorld(), MainHUDClass);
+
+		if (IsValid(MainHUDInstance))
+		{
+			MainHUDInstance->AddToViewport();
+		}
+	}
+}
+
+AActor* AL1Character::LineTrace(float Length, bool bDrawLine)
+{
+	FHitResult OutHit;
+	FVector TraceStart = CameraComp->GetComponentLocation();
+	FVector TraceEnd = TraceStart + (CameraComp->GetForwardVector() * Length);
+	GetWorld()->LineTraceSingleByChannel(
+		OutHit,
+		TraceStart,
+		TraceEnd,
+		ECollisionChannel::ECC_Visibility
+	);
+
+	if (bDrawLine)
+	{
+		DrawDebugLine(
+			GetWorld(),
+			TraceStart,
+			TraceEnd,
+			OutHit.bBlockingHit ? FColor::Green : FColor::Red,
+			false,
+			5.0f,
+			0,
+			0.25f
+		);
+	}
+
+	return OutHit.GetActor();
 }
 
 // Called to bind functionality to input
@@ -52,6 +99,7 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(MoveForwardAction, ETriggerEvent::Triggered, this, &AL1Character::MoveForward);
 		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Triggered, this, &AL1Character::MoveRight);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AL1Character::_Jump);
+		EnhancedInputComponent->BindAction(UseAction, ETriggerEvent::Started, this, &AL1Character::Use);
 	}
 }
 
@@ -92,7 +140,6 @@ void AL1Character::MoveRight(const FInputActionInstance& Instance)
 
 	this->AddMovementInput(this->GetActorRightVector(), Value);
 	FVector Result = GetActorRightVector() * Value;
-	UE_LOG(LogTemp, Warning, TEXT("ActorRightVector * Value = %s * %f = %s"), *GetActorRightVector().ToString(), Value, *Result.ToString());
 }
 
 void AL1Character::_Jump(const FInputActionInstance& Instance)
@@ -100,3 +147,15 @@ void AL1Character::_Jump(const FInputActionInstance& Instance)
 	Jump();
 }
 
+void AL1Character::Use(const FInputActionInstance& Instance)
+{
+	AActor* HitActor = LineTrace(350.0f, true);
+	if (IsValid(HitActor) && HitActor->Implements<UInteractable>())
+	{
+		AInteractableActor* InteractableActor = Cast<AInteractableActor>(HitActor);
+		if (IsValid(InteractableActor))
+		{
+			InteractableActor->Interact();
+		}
+	}
+}
