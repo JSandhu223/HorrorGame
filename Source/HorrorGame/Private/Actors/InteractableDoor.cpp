@@ -13,6 +13,10 @@ AInteractableDoor::AInteractableDoor()
 {
 	bIsDoorClosed = true;
 
+	DotProduct = 0.0f;
+
+	TargetYaw = 0.0f;
+
 	UStaticMeshComponent* DoorFrame = GetComponentByClass<UStaticMeshComponent>();
 	if (IsValid(DoorFrame))
 	{
@@ -37,11 +41,31 @@ void AInteractableDoor::BeginPlay()
 }
 
 void AInteractableDoor::UpdateTimelineComp(float Output)
-{	
-	FRotator DoorNewRotation = FRotator(0.0f, Output, 0.0f);
+{
+	float CurrentDoorYaw = static_cast<float>(DoorMesh->GetComponentRotation().Yaw);
+	if (DotProduct >= 0.0f)
+	{
+		//if (CurrentDoorYaw >= 0.0f)
+		if (FMath::IsNegative(CurrentDoorYaw))
+			TargetYaw = -Output;
+		else
+			TargetYaw = Output;
+	}
+	else
+	{
+		if (!FMath::IsNegative(CurrentDoorYaw) && CurrentDoorYaw != 0.0f)
+			TargetYaw = Output;
+		else
+			TargetYaw = -Output;
+	}
+
+	if (FMath::IsNearlyZero(TargetYaw))
+		TargetYaw = 0.0f;
+	FRotator DoorNewRotation = FRotator(0.0f, TargetYaw, 0.0f);
 	DoorMesh->SetRelativeRotation(DoorNewRotation);
 
-	UE_LOG(LogTemp, Warning, TEXT("Output: %f"), Output);
+	UE_LOG(LogTemp, Warning, TEXT("TargetYaw: %f"), TargetYaw);
+	UE_LOG(LogTemp, Warning, TEXT("CurrentDoorYaw: %lf"), CurrentDoorYaw);
 }
 
 void AInteractableDoor::Interact()

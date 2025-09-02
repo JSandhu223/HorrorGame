@@ -20,6 +20,8 @@ private:
 
 	float DotProduct;
 
+	float TargetYaw;
+
 	// This will be attached to the inherited mesh, which we'll set to be the doorframe
 	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* DoorMesh;
