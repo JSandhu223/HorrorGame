@@ -59,13 +59,16 @@ void AInteractableDoor::UpdateTimelineComp(float Output)
 			TargetYaw = -Output;
 	}
 
-	if (FMath::IsNearlyZero(TargetYaw))
+	if (FMath::IsNearlyZero(TargetYaw, 1.0E-5))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("TargetYaw is nearly zero"));
 		TargetYaw = 0.0f;
+	}
 	FRotator DoorNewRotation = FRotator(0.0f, TargetYaw, 0.0f);
 	DoorMesh->SetRelativeRotation(DoorNewRotation);
 
 	UE_LOG(LogTemp, Warning, TEXT("TargetYaw: %f"), TargetYaw);
-	UE_LOG(LogTemp, Warning, TEXT("CurrentDoorYaw: %lf"), CurrentDoorYaw);
+	//UE_LOG(LogTemp, Warning, TEXT("CurrentDoorYaw: %lf"), CurrentDoorYaw);
 }
 
 void AInteractableDoor::Interact()
