@@ -207,6 +207,5 @@ void AL1Character::Flashlight(const FInputActionInstance& Instance)
 		UE_LOG(LogTemp, Warning, TEXT("Flashlight off"));
 	}*/
 
-	SpotLight->SetVisibility(!bFlashlightOn);
-	bFlashlightOn = !bFlashlightOn;
+	SpotLight->SetVisibility(bFlashlightOn = !bFlashlightOn);;
 }
