@@ -25,8 +25,6 @@ AL1Character::AL1Character()
 	bUseControllerRotationYaw = true;
 	bUseControllerRotationPitch = true;
 
-	bFlashlightOn = false;
-
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(this->RootComponent);
 	Camera->SetWorldLocation(FVector(0.0f, 0.0f, 60.0f));
@@ -40,7 +38,8 @@ AL1Character::AL1Character()
 
 	SpotLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("Spotlight"));
 	SpotLight->SetupAttachment(SpringArm);
-	SpotLight->SetVisibility(false);
+	this->bFlashlightOn = false;
+	SpotLight->SetVisibility(bFlashlightOn);
 
 	MovementComp = GetComponentByClass<UCharacterMovementComponent>();
 	MovementComp->MaxWalkSpeed = 600.0f;
@@ -194,7 +193,7 @@ void AL1Character::Use(const FInputActionInstance& Instance)
 
 void AL1Character::Flashlight(const FInputActionInstance& Instance)
 {
-	if (!bFlashlightOn)
+	/*if (!bFlashlightOn)
 	{
 		SpotLight->SetVisibility(true);
 		bFlashlightOn = true;
@@ -206,5 +205,8 @@ void AL1Character::Flashlight(const FInputActionInstance& Instance)
 		SpotLight->SetVisibility(false);
 		bFlashlightOn = false;
 		UE_LOG(LogTemp, Warning, TEXT("Flashlight off"));
-	}
+	}*/
+
+	SpotLight->SetVisibility(!bFlashlightOn);
+	bFlashlightOn = !bFlashlightOn;
 }
