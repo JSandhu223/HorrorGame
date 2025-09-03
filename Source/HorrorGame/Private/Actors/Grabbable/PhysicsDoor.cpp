@@ -4,6 +4,9 @@
 #include "Actors/Grabbable/PhysicsDoor.h"
 #include "Components/StaticMeshComponent.h"
 #include "PhysicsEngine/PhysicsConstraintComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 // Sets default values
@@ -57,7 +60,9 @@ void APhysicsDoor::Tick(float DeltaTime)
 
 void APhysicsDoor::GrabObject()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Grabbed object!"));
+	// Optional: Disable player movement (i.e. WASD movement) and camera movement when player interacts with the door
+
+	UE_LOG(LogTemp, Warning, TEXT("Grabbed physics door!"));
 }
 
 void APhysicsDoor::ReleaseObject()
