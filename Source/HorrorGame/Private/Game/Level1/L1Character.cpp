@@ -25,6 +25,8 @@ AL1Character::AL1Character()
 	bUseControllerRotationYaw = true;
 	bUseControllerRotationPitch = true;
 
+	bFlashlightOn = false;
+
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(this->RootComponent);
 	Camera->SetWorldLocation(FVector(0.0f, 0.0f, 60.0f));
@@ -38,7 +40,7 @@ AL1Character::AL1Character()
 
 	SpotLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("Spotlight"));
 	SpotLight->SetupAttachment(SpringArm);
-	//SpotLight->SetWorldLocation(FVector::ZeroVector);
+	SpotLight->SetVisibility(false);
 
 	MovementComp = GetComponentByClass<UCharacterMovementComponent>();
 	MovementComp->MaxWalkSpeed = 600.0f;
@@ -117,6 +119,7 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Triggered, this, &AL1Character::MoveRight);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AL1Character::_Jump);
 		EnhancedInputComponent->BindAction(UseAction, ETriggerEvent::Started, this, &AL1Character::Use);
+		EnhancedInputComponent->BindAction(FlashlightAction, ETriggerEvent::Started, this, &AL1Character::Flashlight);
 	}
 }
 
@@ -186,5 +189,22 @@ void AL1Character::Use(const FInputActionInstance& Instance)
 				PhysicsDoor->GrabObject();
 			}
 		}
+	}
+}
+
+void AL1Character::Flashlight(const FInputActionInstance& Instance)
+{
+	if (!bFlashlightOn)
+	{
+		SpotLight->SetVisibility(true);
+		bFlashlightOn = true;
+		UE_LOG(LogTemp, Warning, TEXT("Flashlight on"));
+	}
+
+	else
+	{
+		SpotLight->SetVisibility(false);
+		bFlashlightOn = false;
+		UE_LOG(LogTemp, Warning, TEXT("Flashlight off"));
 	}
 }

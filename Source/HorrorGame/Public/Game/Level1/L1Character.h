@@ -13,6 +13,8 @@ class HORRORGAME_API AL1Character : public ACharacter
 	GENERATED_BODY()
 
 private:
+	bool bFlashlightOn;
+
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
 
@@ -62,6 +64,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* UseAction;
 
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* FlashlightAction;
+
 	void LookRight(const struct FInputActionInstance& Instance);
 
 	void LookUp(const struct FInputActionInstance& Instance);
@@ -73,6 +78,8 @@ private:
 	void _Jump(const struct FInputActionInstance& Instance);
 
 	void Use(const struct FInputActionInstance& Instance);
+
+	void Flashlight(const struct FInputActionInstance& Instance);
 
 protected:
 	// Called when the game starts or when spawned
