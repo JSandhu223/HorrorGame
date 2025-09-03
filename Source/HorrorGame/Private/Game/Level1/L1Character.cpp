@@ -7,6 +7,7 @@
 #include "Game/HGPlayerController.h"
 #include "Actors/InteractableActor.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Components/SpotLightComponent.h"
 #include "UMG/MainHUD.h"
 #include "Blueprint/UserWidget.h"
 #include "Actors/Grabbable/PhysicsDoor.h"
@@ -23,8 +24,13 @@ AL1Character::AL1Character()
 	bUseControllerRotationYaw = true;
 	bUseControllerRotationPitch = true;
 
-	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	CameraComp->SetupAttachment(this->RootComponent);
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	Camera->SetupAttachment(this->RootComponent);
+	Camera->SetWorldLocation(FVector(0.0f, 0.0f, 60.0f));
+
+	SpotLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("Spotlight"));
+	SpotLight->SetupAttachment(Camera);
+	SpotLight->SetWorldLocation(FVector::ZeroVector);
 
 	MovementComp = GetComponentByClass<UCharacterMovementComponent>();
 	MovementComp->MaxWalkSpeed = 600.0f;
@@ -63,8 +69,8 @@ void AL1Character::Initialize()
 AActor* AL1Character::LineTrace(float Length, bool bDrawLine, FColor HitColor, FColor NoHitColor)
 {
 	FHitResult OutHit;
-	FVector TraceStart = CameraComp->GetComponentLocation();
-	FVector TraceEnd = TraceStart + (CameraComp->GetForwardVector() * Length);
+	FVector TraceStart = Camera->GetComponentLocation();
+	FVector TraceEnd = TraceStart + (Camera->GetForwardVector() * Length);
 	GetWorld()->LineTraceSingleByChannel(
 		OutHit,
 		TraceStart,
