@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Interfaces/Grabbable.h"
 #include "PhysicsDoor.generated.h"
 
 UCLASS()
-class HORRORGAME_API APhysicsDoor : public AActor
+class HORRORGAME_API APhysicsDoor : public AActor, public IGrabbable
 {
 	GENERATED_BODY()
 	
