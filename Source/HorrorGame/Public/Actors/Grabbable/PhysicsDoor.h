@@ -21,6 +21,9 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	class UStaticMeshComponent* Door;
 
+	UPROPERTY(VisibleAnywhere)
+	class UPhysicsConstraintComponent* PhysicsConstraint;
+
 public:	
 	// Sets default values for this actor's properties
 	APhysicsDoor();
