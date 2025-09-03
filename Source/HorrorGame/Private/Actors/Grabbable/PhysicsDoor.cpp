@@ -55,3 +55,12 @@ void APhysicsDoor::Tick(float DeltaTime)
 
 }
 
+void APhysicsDoor::GrabObject()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grabbed object!"));
+}
+
+void APhysicsDoor::ReleaseObject()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Released object!"));
+}

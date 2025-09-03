@@ -29,6 +29,10 @@ public:
 	// Sets default values for this actor's properties
 	APhysicsDoor();
 
+	virtual void GrabObject() override;
+
+	virtual void ReleaseObject() override;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
