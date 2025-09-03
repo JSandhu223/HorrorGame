@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Interfaces/Interactable.h"
+
 #include "L1Character.generated.h"
 
 UCLASS()
@@ -24,7 +24,7 @@ private:
 private:
 	void Initialize();
 
-	AActor* LineTrace(float Length, bool bDrawLine);
+	AActor* LineTrace(float Length, bool bDrawLine, FColor HitColor = FColor::White, FColor NoHitColor = FColor::White);
 
 public:
 	// Sets default values for this character's properties

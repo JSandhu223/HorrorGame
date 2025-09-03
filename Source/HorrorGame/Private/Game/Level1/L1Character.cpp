@@ -9,6 +9,9 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "UMG/MainHUD.h"
 #include "Blueprint/UserWidget.h"
+#include "Actors/Grabbable/PhysicsDoor.h"
+#include "Interfaces/Interactable.h"
+#include "Interfaces/Grabbable.h"
 
 
 // Sets default values
@@ -57,7 +60,7 @@ void AL1Character::Initialize()
 	}
 }
 
-AActor* AL1Character::LineTrace(float Length, bool bDrawLine)
+AActor* AL1Character::LineTrace(float Length, bool bDrawLine, FColor HitColor, FColor NoHitColor)
 {
 	FHitResult OutHit;
 	FVector TraceStart = CameraComp->GetComponentLocation();
@@ -75,7 +78,7 @@ AActor* AL1Character::LineTrace(float Length, bool bDrawLine)
 			GetWorld(),
 			TraceStart,
 			TraceEnd,
-			OutHit.bBlockingHit ? FColor::Green : FColor::Red,
+			OutHit.bBlockingHit ? HitColor : NoHitColor,
 			false,
 			5.0f,
 			0,
@@ -149,13 +152,25 @@ void AL1Character::_Jump(const FInputActionInstance& Instance)
 
 void AL1Character::Use(const FInputActionInstance& Instance)
 {
-	AActor* HitActor = LineTrace(350.0f, true);
-	if (IsValid(HitActor) && HitActor->Implements<UInteractable>())
+	AActor* HitActor = LineTrace(350.0f, true, FColor::Green, FColor::Red);
+	if (IsValid(HitActor))
 	{
-		AInteractableActor* InteractableActor = Cast<AInteractableActor>(HitActor);
-		if (IsValid(InteractableActor))
+		if (HitActor->Implements<UInteractable>())
 		{
-			InteractableActor->Interact();
+			AInteractableActor* InteractableActor = Cast<AInteractableActor>(HitActor);
+			if (IsValid(InteractableActor))
+			{
+				InteractableActor->Interact();
+			}
+			return;
+		}
+
+		if (HitActor->Implements<UGrabbable>())
+		{
+			if (APhysicsDoor* PhysicsDoor = Cast<APhysicsDoor>(HitActor))
+			{
+				PhysicsDoor->GrabObject();
+			}
 		}
 	}
 }
