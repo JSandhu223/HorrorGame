@@ -17,6 +17,9 @@ private:
 	class UCameraComponent* Camera;
 
 	UPROPERTY(VisibleAnywhere)
+	class USpringArmComponent* SpringArm;
+
+	UPROPERTY(VisibleAnywhere)
 	class USpotLightComponent* SpotLight;
 
 	// This will point to the default character movement component on the Character class

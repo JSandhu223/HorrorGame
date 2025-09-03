@@ -6,8 +6,9 @@
 #include "EnhancedInputComponent.h"
 #include "Game/HGPlayerController.h"
 #include "Actors/InteractableActor.h"
-#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "Components/SpotLightComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "UMG/MainHUD.h"
 #include "Blueprint/UserWidget.h"
 #include "Actors/Grabbable/PhysicsDoor.h"
@@ -28,9 +29,16 @@ AL1Character::AL1Character()
 	Camera->SetupAttachment(this->RootComponent);
 	Camera->SetWorldLocation(FVector(0.0f, 0.0f, 60.0f));
 
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
+	SpringArm->SetupAttachment(Camera);
+	SpringArm->TargetArmLength = 10.0f;
+	SpringArm->SocketOffset = FVector(0.0f, 0.0f, -30.0f);
+	SpringArm->bEnableCameraRotationLag = 1;
+	SpringArm->CameraRotationLagSpeed = 15.0f;
+
 	SpotLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("Spotlight"));
-	SpotLight->SetupAttachment(Camera);
-	SpotLight->SetWorldLocation(FVector::ZeroVector);
+	SpotLight->SetupAttachment(SpringArm);
+	//SpotLight->SetWorldLocation(FVector::ZeroVector);
 
 	MovementComp = GetComponentByClass<UCharacterMovementComponent>();
 	MovementComp->MaxWalkSpeed = 600.0f;
