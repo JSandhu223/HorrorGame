@@ -58,6 +58,10 @@ void APhysicsDoor::Tick(float DeltaTime)
 
 }
 
+/// <summary>
+/// We may not need the physics door to be grabbable and simply keep them as doors that open when the player collides with them.
+/// In that case, we can remove the interface from this class.
+/// </summary>
 void APhysicsDoor::GrabObject()
 {
 	// Optional: Disable player movement (i.e. WASD movement) and camera movement when player interacts with the door
@@ -65,7 +69,8 @@ void APhysicsDoor::GrabObject()
 	UE_LOG(LogTemp, Warning, TEXT("Grabbed physics door!"));
 }
 
+// This doesn't do anything at the moment
 void APhysicsDoor::ReleaseObject()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Released object!"));
+	UE_LOG(LogTemp, Warning, TEXT("Release physics door!"));
 }
