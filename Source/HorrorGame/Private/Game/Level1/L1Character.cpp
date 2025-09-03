@@ -57,7 +57,7 @@ void AL1Character::Initialize()
 	}
 }
 
-AActor* AL1Character::LineTrace(float Length, bool bDrawLine)
+AActor* AL1Character::LineTrace(float Length, bool bDrawLine, FColor HitColor, FColor NoHitColor)
 {
 	FHitResult OutHit;
 	FVector TraceStart = CameraComp->GetComponentLocation();
@@ -75,7 +75,7 @@ AActor* AL1Character::LineTrace(float Length, bool bDrawLine)
 			GetWorld(),
 			TraceStart,
 			TraceEnd,
-			OutHit.bBlockingHit ? FColor::Green : FColor::Red,
+			OutHit.bBlockingHit ? HitColor : NoHitColor,
 			false,
 			5.0f,
 			0,
@@ -149,7 +149,7 @@ void AL1Character::_Jump(const FInputActionInstance& Instance)
 
 void AL1Character::Use(const FInputActionInstance& Instance)
 {
-	AActor* HitActor = LineTrace(350.0f, true);
+	AActor* HitActor = LineTrace(350.0f, true, FColor::Green, FColor::Red);
 	if (IsValid(HitActor) && HitActor->Implements<UInteractable>())
 	{
 		AInteractableActor* InteractableActor = Cast<AInteractableActor>(HitActor);
