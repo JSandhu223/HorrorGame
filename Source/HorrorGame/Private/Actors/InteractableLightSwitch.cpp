@@ -10,7 +10,7 @@ void AInteractableLightSwitch::Interact()
 {
 	if (!IsValid(Light))
 	{
-		UE_LOG(LogTemp, Error, TEXT("AInteractableLightSwitch: No Light is assigned to this light switch!"));
+		UE_LOG(LogTemp, Error, TEXT("%s: No Light is assigned to this light switch!"), *this->GetName());
 		return;
 	}
 
