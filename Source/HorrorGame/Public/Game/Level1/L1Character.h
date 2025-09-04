@@ -13,6 +13,20 @@ class HORRORGAME_API AL1Character : public ACharacter
 	GENERATED_BODY()
 
 private:
+	bool bFlashlightOn;
+
+	UPROPERTY(VisibleAnywhere)
+	class UCameraComponent* Camera;
+
+	UPROPERTY(VisibleAnywhere)
+	class USpringArmComponent* SpringArm;
+
+	UPROPERTY(VisibleAnywhere)
+	class USpotLightComponent* SpotLight;
+
+	// This will point to the default character movement component on the Character class
+	class UCharacterMovementComponent* MovementComp;
+
 	class AHGPlayerController* HGPlayerController;
 
 	// This will be set to WBP_MainHUD in the editor
@@ -50,6 +64,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* UseAction;
 
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* FlashlightAction;
+
 	void LookRight(const struct FInputActionInstance& Instance);
 
 	void LookUp(const struct FInputActionInstance& Instance);
@@ -62,15 +79,11 @@ private:
 
 	void Use(const struct FInputActionInstance& Instance);
 
+	void Flashlight(const struct FInputActionInstance& Instance);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	UPROPERTY(EditAnywhere)
-	class UCameraComponent* CameraComp;
-
-	// This will point to the default character movement component on the Character class
-	class UCharacterMovementComponent* MovementComp;
 
 public:	
 	// Called every frame
