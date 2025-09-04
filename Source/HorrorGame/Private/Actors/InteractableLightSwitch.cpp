@@ -3,3 +3,7 @@
 
 #include "Actors/InteractableLightSwitch.h"
 
+void AInteractableLightSwitch::Interact()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Interacted with light switch!"));
+}
