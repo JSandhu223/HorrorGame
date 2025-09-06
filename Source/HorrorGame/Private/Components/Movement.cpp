@@ -65,9 +65,9 @@ void UMovement::StartSprint()
 		SetPlayerMaxWalkSpeed(SprintSpeed);
 
 		this->GetOwner()->GetWorldTimerManager().SetTimer(
-			this->TimerHandle,
+			this->DepleteStaminaTimerHandle,
 			this,
-			&UMovement::SprintTimer,
+			&UMovement::DepleteStamina,
 			0.1f,
 			true
 		);
@@ -76,21 +76,12 @@ void UMovement::StartSprint()
 
 void UMovement::StopSprint()
 {
-	this->GetOwner()->GetWorldTimerManager().ClearTimer(this->TimerHandle);
+	this->GetOwner()->GetWorldTimerManager().ClearTimer(this->DepleteStaminaTimerHandle);
 
 	SetPlayerMaxWalkSpeed(this->WalkSpeed);
 }
 
-void UMovement::RegenerateStamina()
-{
-	CurrentStamina = FMath::Clamp(CurrentStamina + 1, MinStamina, MaxStamina);
-	if (CurrentStamina == MaxStamina)
-	{
-		// Clear timer
-	}
-}
-
-void UMovement::SprintTimer()
+void UMovement::DepleteStamina()
 {
 	bool bPlayerIsMoving = PlayerRef->GetVelocity().Length() > 0.0f;
 	if (!bPlayerIsMoving)
@@ -104,5 +95,14 @@ void UMovement::SprintTimer()
 	if (CurrentStamina == MinStamina)
 	{
 		StopSprint();
+	}
+}
+
+void UMovement::RegenerateStamina()
+{
+	CurrentStamina = FMath::Clamp(CurrentStamina + 1, MinStamina, MaxStamina);
+	if (CurrentStamina == MaxStamina)
+	{
+		// Clear timer
 	}
 }

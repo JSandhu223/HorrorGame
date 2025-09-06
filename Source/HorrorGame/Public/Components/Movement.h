@@ -15,7 +15,7 @@ class HORRORGAME_API UMovement : public UActorComponent
 private:
 	class ACharacter* PlayerRef;
 
-	struct FTimerHandle TimerHandle;
+	struct FTimerHandle DepleteStaminaTimerHandle;
 
 	UPROPERTY(EditAnywhere)
 	float SprintSpeed;
@@ -41,13 +41,13 @@ public:
 
 	void StopSprint();
 
-	void RegenerateStamina();
-
 private:
 	void SetPlayerMaxWalkSpeed(float MaxWalkSpeed);
 
-	// Called by our timer
-	void SprintTimer();
+	// Called by timer for depleting stamina
+	void DepleteStamina();
+
+	void RegenerateStamina();
 
 protected:
 	// Called when the game starts
