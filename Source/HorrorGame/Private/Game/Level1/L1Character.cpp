@@ -55,7 +55,8 @@ void AL1Character::BeginPlay()
 
 	HGPlayerController = this->GetController<AHGPlayerController>();
 
-	Initialize();
+	MovementComp->Initialize(this);
+	this->Initialize();
 }
 
 // Called every frame

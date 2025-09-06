@@ -2,6 +2,8 @@
 
 
 #include "Components/Movement.h"
+#include "GameFramework/Character.h"
+
 
 // Sets default values for this component's properties
 UMovement::UMovement()
@@ -11,6 +13,11 @@ UMovement::UMovement()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+}
+
+void UMovement::Initialize(ACharacter* Character)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Initializing Movement component"));
 }
 
 

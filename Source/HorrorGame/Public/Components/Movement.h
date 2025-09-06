@@ -16,6 +16,8 @@ public:
 	// Sets default values for this component's properties
 	UMovement();
 
+	void Initialize(class ACharacter* Character);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
