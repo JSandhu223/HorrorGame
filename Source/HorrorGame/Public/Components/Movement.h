@@ -33,6 +33,10 @@ private:
 
 	float CurrentStamina;
 
+	float StaminaDepletionRate;
+
+	float StaminaRegenRate;
+
 public:	
 	// Sets default values for this component's properties
 	UMovement();

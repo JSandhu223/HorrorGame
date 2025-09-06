@@ -23,6 +23,10 @@ UMovement::UMovement()
 	MaxStamina = 100.0f;
 	MinStamina = 0.0f;
 	CurrentStamina = 100.0f;
+
+	// These will be used with their respective timers
+	StaminaDepletionRate = 0.1f;
+	StaminaRegenRate = 0.05f;
 }
 
 // Called when the game starts
@@ -69,7 +73,7 @@ void UMovement::StartSprint()
 			this->DepleteStaminaTimerHandle,
 			this,
 			&UMovement::DepleteStamina,
-			0.1f,
+			StaminaDepletionRate,
 			true
 		);
 	}
@@ -86,7 +90,7 @@ void UMovement::StopSprint()
 		this->RegenerateStaminaTimerHandle,
 		this,
 		&UMovement::RegenerateStamina,
-		0.1f,
+		StaminaRegenRate,
 		true,
 		DelaySeconds
 	);
