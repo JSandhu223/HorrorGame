@@ -15,6 +15,8 @@ class HORRORGAME_API UMovement : public UActorComponent
 private:
 	class ACharacter* PlayerRef;
 
+	struct FTimerHandle TimerHandle;
+
 	UPROPERTY(EditAnywhere)
 	float SprintSpeed;
 
@@ -31,6 +33,9 @@ private:
 
 private:
 	void StartSprint();
+
+	void StopSprint();
+
 	void SetPlayerMaxWalkSpeed(float MaxWalkSpeed);
 
 	// Called by our timer

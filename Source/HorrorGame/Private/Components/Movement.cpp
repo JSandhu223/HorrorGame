@@ -46,27 +46,31 @@ void UMovement::Initialize(ACharacter* Character)
 	UE_LOG(LogTemp, Warning, TEXT("Initializing Movement component"));
 
 	PlayerRef = Character;
-
 	// Set the max walk speed on the character's existing character movement component to the walk speed of this custom movement component
 	PlayerRef->GetCharacterMovement()->MaxWalkSpeed = this->WalkSpeed;
 }
 
 void UMovement::StartSprint()
 {
-	if (this->CurrentStamina > this->MaxStamina)
+	if (CurrentStamina > MaxStamina)
 	{
-		SetPlayerMaxWalkSpeed(this->SprintSpeed);
+		SetPlayerMaxWalkSpeed(SprintSpeed);
 	}
 
-	FTimerHandle TimerHandle;
 	this->GetOwner()->GetWorldTimerManager().SetTimer(
-		TimerHandle,
+		this->TimerHandle,
 		this,
 		&UMovement::SprintTimer,
 		0.1f,
 		true
 	);
-	
+}
+
+void UMovement::StopSprint()
+{
+	this->GetOwner()->GetWorldTimerManager().ClearTimer(this->TimerHandle);
+
+	SetPlayerMaxWalkSpeed(this->WalkSpeed);
 }
 
 void UMovement::SetPlayerMaxWalkSpeed(float MaxWalkSpeed)
@@ -77,4 +81,10 @@ void UMovement::SetPlayerMaxWalkSpeed(float MaxWalkSpeed)
 void UMovement::SprintTimer()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Timer was called"));
+
+	CurrentStamina = FMath::Clamp(CurrentStamina - 1, MinStamina, MaxStamina);
+	if (CurrentStamina == MinStamina)
+	{
+		StopSprint();
+	}
 }
