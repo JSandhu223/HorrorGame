@@ -124,6 +124,7 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(UseAction, ETriggerEvent::Started, this, &AL1Character::Use);
 		EnhancedInputComponent->BindAction(FlashlightAction, ETriggerEvent::Started, this, &AL1Character::Flashlight);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AL1Character::Sprint);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AL1Character::StopSprint);
 	}
 }
 
@@ -221,4 +222,11 @@ void AL1Character::Sprint(const FInputActionInstance& Instance)
 	UE_LOG(LogTemp, Warning, TEXT("%s is sprinting!"), *this->GetName());
 
 	MovementComp->StartSprint();
+}
+
+void AL1Character::StopSprint(const FInputActionInstance& Instance)
+{
+	UE_LOG(LogTemp, Warning, TEXT("%s stopped sprinting!"), *this->GetName());
+
+	MovementComp->StopSprint();
 }

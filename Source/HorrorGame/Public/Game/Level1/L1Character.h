@@ -88,6 +88,7 @@ private:
 	void Flashlight(const struct FInputActionInstance& Instance);
 
 	void Sprint(const struct FInputActionInstance& Instance);
+	void StopSprint(const struct FInputActionInstance& Instance);
 
 protected:
 	// Called when the game starts or when spawned
