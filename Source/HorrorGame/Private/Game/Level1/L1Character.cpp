@@ -219,14 +219,14 @@ void AL1Character::Flashlight(const FInputActionInstance& Instance)
 
 void AL1Character::Sprint(const FInputActionInstance& Instance)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%s is sprinting!"), *this->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Sprint key pressed"), *this->GetName());
 
 	MovementComp->StartSprint();
 }
 
 void AL1Character::StopSprint(const FInputActionInstance& Instance)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%s stopped sprinting!"), *this->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Sprint key released"), *this->GetName());
 
 	MovementComp->StopSprint();
 }

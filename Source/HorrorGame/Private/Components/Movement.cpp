@@ -52,18 +52,21 @@ void UMovement::Initialize(ACharacter* Character)
 
 void UMovement::StartSprint()
 {
-	if (CurrentStamina > MinStamina)
+	bool bPlayerHasStamina = CurrentStamina > MinStamina;
+	bool bPlayerIsMoving = PlayerRef->GetVelocity().Length() > 0.0f;
+
+	if (bPlayerHasStamina && bPlayerIsMoving)
 	{
 		SetPlayerMaxWalkSpeed(SprintSpeed);
-	}
 
-	this->GetOwner()->GetWorldTimerManager().SetTimer(
-		this->TimerHandle,
-		this,
-		&UMovement::SprintTimer,
-		0.1f,
-		true
-	);
+		this->GetOwner()->GetWorldTimerManager().SetTimer(
+			this->TimerHandle,
+			this,
+			&UMovement::SprintTimer,
+			0.1f,
+			true
+		);
+	}
 }
 
 void UMovement::StopSprint()
