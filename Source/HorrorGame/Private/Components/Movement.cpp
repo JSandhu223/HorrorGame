@@ -16,8 +16,10 @@ UMovement::UMovement()
 	PlayerRef = nullptr;
 
 	SprintSpeed = 800.0f;
-
 	WalkSpeed = 400.0f;
+	CurrentStamina = 0.0f;
+	MaxStamina = 100.0f;
+	MinStamina = 0.0f;
 }
 
 // Called when the game starts

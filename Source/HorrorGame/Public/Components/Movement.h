@@ -21,6 +21,14 @@ private:
 	UPROPERTY(EditAnywhere)
 	float WalkSpeed;
 
+	float CurrentStamina;
+
+	UPROPERTY(EditAnywhere)
+	float MaxStamina;
+
+	UPROPERTY(EditAnywhere)
+	float MinStamina;
+
 public:	
 	// Sets default values for this component's properties
 	UMovement();
