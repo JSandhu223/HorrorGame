@@ -70,6 +70,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* FlashlightAction;
 
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* SprintAction;
+
 	void LookRight(const struct FInputActionInstance& Instance);
 
 	void LookUp(const struct FInputActionInstance& Instance);
@@ -83,6 +86,8 @@ private:
 	void Use(const struct FInputActionInstance& Instance);
 
 	void Flashlight(const struct FInputActionInstance& Instance);
+
+	void Sprint(const struct FInputActionInstance& Instance);
 
 protected:
 	// Called when the game starts or when spawned
