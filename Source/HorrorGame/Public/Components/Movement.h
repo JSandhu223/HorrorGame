@@ -41,6 +41,8 @@ public:
 
 	void StopSprint();
 
+	void RegenerateStamina();
+
 private:
 	void SetPlayerMaxWalkSpeed(float MaxWalkSpeed);
 

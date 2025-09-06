@@ -81,6 +81,15 @@ void UMovement::StopSprint()
 	SetPlayerMaxWalkSpeed(this->WalkSpeed);
 }
 
+void UMovement::RegenerateStamina()
+{
+	CurrentStamina = FMath::Clamp(CurrentStamina + 1, MinStamina, MaxStamina);
+	if (CurrentStamina == MaxStamina)
+	{
+		// Clear timer
+	}
+}
+
 void UMovement::SprintTimer()
 {
 	bool bPlayerIsMoving = PlayerRef->GetVelocity().Length() > 0.0f;
