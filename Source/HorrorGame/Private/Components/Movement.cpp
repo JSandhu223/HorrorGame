@@ -18,7 +18,7 @@ UMovement::UMovement()
 
 	PlayerRef = nullptr;
 
-	SprintSpeed = 800.0f;
+	SprintSpeed = 600.0f;
 	WalkSpeed = 300.0f;
 	MaxStamina = 100.0f;
 	MinStamina = 0.0f;
