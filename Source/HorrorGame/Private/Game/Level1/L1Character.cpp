@@ -219,4 +219,6 @@ void AL1Character::Flashlight(const FInputActionInstance& Instance)
 void AL1Character::Sprint(const FInputActionInstance& Instance)
 {
 	UE_LOG(LogTemp, Warning, TEXT("%s is sprinting!"), *this->GetName());
+
+	MovementComp->StartSprint();
 }

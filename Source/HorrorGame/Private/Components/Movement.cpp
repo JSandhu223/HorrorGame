@@ -21,7 +21,7 @@ UMovement::UMovement()
 	WalkSpeed = 300.0f;
 	MaxStamina = 100.0f;
 	MinStamina = 0.0f;
-	CurrentStamina = 100.0f;
+	CurrentStamina = 30.0f;
 }
 
 // Called when the game starts
@@ -52,7 +52,7 @@ void UMovement::Initialize(ACharacter* Character)
 
 void UMovement::StartSprint()
 {
-	if (CurrentStamina > MaxStamina)
+	if (CurrentStamina > MinStamina)
 	{
 		SetPlayerMaxWalkSpeed(SprintSpeed);
 	}
@@ -80,7 +80,7 @@ void UMovement::SetPlayerMaxWalkSpeed(float MaxWalkSpeed)
 
 void UMovement::SprintTimer()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Timer was called"));
+	UE_LOG(LogTemp, Warning, TEXT("CurrentStamina: %f"), this->CurrentStamina);
 
 	CurrentStamina = FMath::Clamp(CurrentStamina - 1, MinStamina, MaxStamina);
 	if (CurrentStamina == MinStamina)

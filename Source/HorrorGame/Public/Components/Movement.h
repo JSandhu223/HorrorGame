@@ -31,21 +31,21 @@ private:
 
 	float CurrentStamina;
 
-private:
-	void StartSprint();
-
-	void StopSprint();
-
-	void SetPlayerMaxWalkSpeed(float MaxWalkSpeed);
-
-	// Called by our timer
-	void SprintTimer();
-
 public:	
 	// Sets default values for this component's properties
 	UMovement();
 
 	void Initialize(class ACharacter* Character);
+
+	void StartSprint();
+
+	void StopSprint();
+
+private:
+	void SetPlayerMaxWalkSpeed(float MaxWalkSpeed);
+
+	// Called by our timer
+	void SprintTimer();
 
 protected:
 	// Called when the game starts
