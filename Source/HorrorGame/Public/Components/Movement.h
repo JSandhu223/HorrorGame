@@ -12,6 +12,15 @@ class HORRORGAME_API UMovement : public UActorComponent
 {
 	GENERATED_BODY()
 
+private:
+	class ACharacter* PlayerRef;
+
+	UPROPERTY(EditAnywhere)
+	float SprintSpeed;
+
+	UPROPERTY(EditAnywhere)
+	float WalkSpeed;
+
 public:	
 	// Sets default values for this component's properties
 	UMovement();

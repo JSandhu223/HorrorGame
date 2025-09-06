@@ -3,6 +3,7 @@
 
 #include "Components/Movement.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 // Sets default values for this component's properties
@@ -12,14 +13,12 @@ UMovement::UMovement()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
-}
+	PlayerRef = nullptr;
 
-void UMovement::Initialize(ACharacter* Character)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Initializing Movement component"));
-}
+	SprintSpeed = 800.0f;
 
+	WalkSpeed = 400.0f;
+}
 
 // Called when the game starts
 void UMovement::BeginPlay()
@@ -38,3 +37,12 @@ void UMovement::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	// ...
 }
 
+void UMovement::Initialize(ACharacter* Character)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Initializing Movement component"));
+
+	PlayerRef = Character;
+
+	// Set the max walk speed on the character's existing character movement component to the walk speed of this custom movement component
+	PlayerRef->GetCharacterMovement()->MaxWalkSpeed = this->WalkSpeed;
+}
