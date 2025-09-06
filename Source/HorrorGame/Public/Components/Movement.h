@@ -17,6 +17,8 @@ private:
 
 	struct FTimerHandle DepleteStaminaTimerHandle;
 
+	struct FTimerHandle RegenerateStaminaTimerHandle;
+
 	UPROPERTY(EditAnywhere)
 	float SprintSpeed;
 

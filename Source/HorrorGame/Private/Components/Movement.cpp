@@ -6,6 +6,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Engine/TimerHandle.h"
 #include "GameFramework/Actor.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 
 // Sets default values for this component's properties
@@ -21,7 +22,7 @@ UMovement::UMovement()
 	WalkSpeed = 300.0f;
 	MaxStamina = 100.0f;
 	MinStamina = 0.0f;
-	CurrentStamina = 30.0f;
+	CurrentStamina = 100.0f;
 }
 
 // Called when the game starts
@@ -79,6 +80,16 @@ void UMovement::StopSprint()
 	this->GetOwner()->GetWorldTimerManager().ClearTimer(this->DepleteStaminaTimerHandle);
 
 	SetPlayerMaxWalkSpeed(this->WalkSpeed);
+
+	float DelaySeconds = 5.0f;
+	this->GetOwner()->GetWorldTimerManager().SetTimer(
+		this->RegenerateStaminaTimerHandle,
+		this,
+		&UMovement::RegenerateStamina,
+		0.1f,
+		true,
+		DelaySeconds
+	);
 }
 
 void UMovement::DepleteStamina()
@@ -91,7 +102,8 @@ void UMovement::DepleteStamina()
 	}
 
 	CurrentStamina = FMath::Clamp(CurrentStamina - 1, MinStamina, MaxStamina);
-	UE_LOG(LogTemp, Warning, TEXT("CurrentStamina: %f"), this->CurrentStamina);
+	UE_LOG(LogTemp, Warning, TEXT("Depleted stamina! CurrentStamina: %f"), this->CurrentStamina);
+
 	if (CurrentStamina == MinStamina)
 	{
 		StopSprint();
@@ -100,9 +112,16 @@ void UMovement::DepleteStamina()
 
 void UMovement::RegenerateStamina()
 {
+	if (this->GetOwner()->GetWorldTimerManager().IsTimerActive(DepleteStaminaTimerHandle))
+	{
+		this->GetOwner()->GetWorldTimerManager().ClearTimer(this->RegenerateStaminaTimerHandle);
+	}
+
 	CurrentStamina = FMath::Clamp(CurrentStamina + 1, MinStamina, MaxStamina);
+	UE_LOG(LogTemp, Warning, TEXT("Regenerated stamina! CurrentStamina: %f"), this->CurrentStamina);
+
 	if (CurrentStamina == MaxStamina)
 	{
-		// Clear timer
+		this->GetOwner()->GetWorldTimerManager().ClearTimer(this->RegenerateStaminaTimerHandle);
 	}
 }
