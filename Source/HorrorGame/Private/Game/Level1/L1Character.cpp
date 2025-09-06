@@ -8,6 +8,7 @@
 #include "Actors/InteractableActor.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/SpotLightComponent.h"
+#include "Components/Movement.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "UMG/MainHUD.h"
 #include "Blueprint/UserWidget.h"
@@ -41,8 +42,10 @@ AL1Character::AL1Character()
 	this->bFlashlightOn = false;
 	SpotLight->SetVisibility(bFlashlightOn);
 
-	MovementComp = GetComponentByClass<UCharacterMovementComponent>();
-	MovementComp->MaxWalkSpeed = 600.0f;
+	CharacterMovementComp = GetComponentByClass<UCharacterMovementComponent>();
+	CharacterMovementComp->MaxWalkSpeed = 600.0f;
+
+	MovementComp = CreateDefaultSubobject<UMovement>(TEXT("Movement"));
 }
 
 // Called when the game starts or when spawned

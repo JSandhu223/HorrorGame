@@ -25,7 +25,10 @@ private:
 	class USpotLightComponent* SpotLight;
 
 	// This will point to the default character movement component on the Character class
-	class UCharacterMovementComponent* MovementComp;
+	class UCharacterMovementComponent* CharacterMovementComp;
+
+	// This is our custom movement component that will handle sprinting and crouching
+	class UMovement* MovementComp;
 
 	class AHGPlayerController* HGPlayerController;
 
