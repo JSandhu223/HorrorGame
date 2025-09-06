@@ -4,6 +4,8 @@
 #include "Components/Movement.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Engine/TimerHandle.h"
+#include "GameFramework/Actor.h"
 
 
 // Sets default values for this component's properties
@@ -15,11 +17,11 @@ UMovement::UMovement()
 
 	PlayerRef = nullptr;
 
-	SprintSpeed = 800.0f;
-	WalkSpeed = 400.0f;
-	CurrentStamina = 0.0f;
+	SprintSpeed = 500.0f;
+	WalkSpeed = 300.0f;
 	MaxStamina = 100.0f;
 	MinStamina = 0.0f;
+	CurrentStamina = 100.0f;
 }
 
 // Called when the game starts
@@ -47,4 +49,32 @@ void UMovement::Initialize(ACharacter* Character)
 
 	// Set the max walk speed on the character's existing character movement component to the walk speed of this custom movement component
 	PlayerRef->GetCharacterMovement()->MaxWalkSpeed = this->WalkSpeed;
+}
+
+void UMovement::StartSprint()
+{
+	if (this->CurrentStamina > this->MaxStamina)
+	{
+		SetPlayerMaxWalkSpeed(this->SprintSpeed);
+	}
+
+	FTimerHandle TimerHandle;
+	this->GetOwner()->GetWorldTimerManager().SetTimer(
+		TimerHandle,
+		this,
+		&UMovement::SprintTimer,
+		0.1f,
+		true
+	);
+	
+}
+
+void UMovement::SetPlayerMaxWalkSpeed(float MaxWalkSpeed)
+{
+	PlayerRef->GetCharacterMovement()->MaxWalkSpeed = MaxWalkSpeed;
+}
+
+void UMovement::SprintTimer()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Timer was called"));
 }

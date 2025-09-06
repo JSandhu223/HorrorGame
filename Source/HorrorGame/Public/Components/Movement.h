@@ -21,13 +21,20 @@ private:
 	UPROPERTY(EditAnywhere)
 	float WalkSpeed;
 
-	float CurrentStamina;
-
 	UPROPERTY(EditAnywhere)
 	float MaxStamina;
 
 	UPROPERTY(EditAnywhere)
 	float MinStamina;
+
+	float CurrentStamina;
+
+private:
+	void StartSprint();
+	void SetPlayerMaxWalkSpeed(float MaxWalkSpeed);
+
+	// Called by our timer
+	void SprintTimer();
 
 public:	
 	// Sets default values for this component's properties
