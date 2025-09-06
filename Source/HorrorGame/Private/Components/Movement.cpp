@@ -50,6 +50,11 @@ void UMovement::Initialize(ACharacter* Character)
 	PlayerRef->GetCharacterMovement()->MaxWalkSpeed = this->WalkSpeed;
 }
 
+void UMovement::SetPlayerMaxWalkSpeed(float MaxWalkSpeed)
+{
+	PlayerRef->GetCharacterMovement()->MaxWalkSpeed = MaxWalkSpeed;
+}
+
 void UMovement::StartSprint()
 {
 	bool bPlayerHasStamina = CurrentStamina > MinStamina;
@@ -76,16 +81,17 @@ void UMovement::StopSprint()
 	SetPlayerMaxWalkSpeed(this->WalkSpeed);
 }
 
-void UMovement::SetPlayerMaxWalkSpeed(float MaxWalkSpeed)
-{
-	PlayerRef->GetCharacterMovement()->MaxWalkSpeed = MaxWalkSpeed;
-}
-
 void UMovement::SprintTimer()
 {
-	UE_LOG(LogTemp, Warning, TEXT("CurrentStamina: %f"), this->CurrentStamina);
+	bool bPlayerIsMoving = PlayerRef->GetVelocity().Length() > 0.0f;
+	if (!bPlayerIsMoving)
+	{
+		StopSprint();
+		return;
+	}
 
 	CurrentStamina = FMath::Clamp(CurrentStamina - 1, MinStamina, MaxStamina);
+	UE_LOG(LogTemp, Warning, TEXT("CurrentStamina: %f"), this->CurrentStamina);
 	if (CurrentStamina == MinStamina)
 	{
 		StopSprint();
