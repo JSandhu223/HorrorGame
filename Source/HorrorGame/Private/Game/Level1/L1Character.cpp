@@ -115,6 +115,16 @@ AActor* AL1Character::LineTrace(float Length, bool bDrawLine, FColor HitColor, F
 	return OutHit.GetActor();
 }
 
+void AL1Character::ShortenPlayerCapsule()
+{
+	CapsuleComp->SetCapsuleHalfHeight(MovementComp->GetCrouchHalfHeight());
+}
+
+void AL1Character::LengthenPlayerCapsule()
+{
+	CapsuleComp->SetCapsuleHalfHeight(88.0f);
+}
+
 // Called to bind functionality to input
 void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -247,7 +257,7 @@ void AL1Character::_Crouch(const FInputActionInstance& Instance)
 		MovementComp->StartCrouch();
 		bIsCrouched = true;
 
-		CapsuleComp->SetCapsuleHalfHeight(MovementComp->GetCrouchHalfHeight());
+		ShortenPlayerCapsule();
 	}
 	
 	else
@@ -256,6 +266,7 @@ void AL1Character::_Crouch(const FInputActionInstance& Instance)
 		MovementComp->StopCrouch();
 		bIsCrouched = false;
 
-		CapsuleComp->SetCapsuleHalfHeight(88.0f);
+		
+		LengthenPlayerCapsule();
 	}
 }
