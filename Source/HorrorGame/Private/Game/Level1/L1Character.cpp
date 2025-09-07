@@ -125,6 +125,8 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(FlashlightAction, ETriggerEvent::Started, this, &AL1Character::Flashlight);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AL1Character::Sprint);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AL1Character::StopSprint);
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &AL1Character::_Crouch);
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AL1Character::_Uncrouch);
 	}
 }
 
@@ -219,14 +221,24 @@ void AL1Character::Flashlight(const FInputActionInstance& Instance)
 
 void AL1Character::Sprint(const FInputActionInstance& Instance)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Sprint key pressed"), *this->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Sprint key pressed"));
 
 	MovementComp->StartSprint();
 }
 
 void AL1Character::StopSprint(const FInputActionInstance& Instance)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Sprint key released"), *this->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("Sprint key released"));
 
 	MovementComp->StopSprint();
+}
+
+void AL1Character::_Crouch(const FInputActionInstance& Instance)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Crouched"));
+}
+
+void AL1Character::_Uncrouch(const FInputActionInstance& Instance)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Uncrouched"));
 }

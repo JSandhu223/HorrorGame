@@ -73,6 +73,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* SprintAction;
 
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* CrouchAction;
+
 	void LookRight(const struct FInputActionInstance& Instance);
 
 	void LookUp(const struct FInputActionInstance& Instance);
@@ -89,6 +92,9 @@ private:
 
 	void Sprint(const struct FInputActionInstance& Instance);
 	void StopSprint(const struct FInputActionInstance& Instance);
+
+	void _Crouch(const struct FInputActionInstance& Instance);
+	void _Uncrouch(const struct FInputActionInstance& Instance);
 
 protected:
 	// Called when the game starts or when spawned
