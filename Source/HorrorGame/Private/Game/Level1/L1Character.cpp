@@ -48,6 +48,8 @@ AL1Character::AL1Character()
 	CharacterMovementComp->MaxWalkSpeed = 600.0f;
 
 	MovementComp = CreateDefaultSubobject<UMovement>(TEXT("Movement"));
+
+	CrouchTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("CrouchTimeline"));
 }
 
 // Called when the game starts or when spawned

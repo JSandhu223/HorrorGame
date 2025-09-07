@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-
+#include "Components/TimelineComponent.h" // included for declaring FOnTimelineFloat
 #include "L1Character.generated.h"
+
 
 UCLASS()
 class HORRORGAME_API AL1Character : public ACharacter
@@ -31,6 +32,14 @@ private:
 
 	// This is our custom movement component that will handle sprinting and crouching
 	class UMovement* MovementComp;
+
+	UPROPERTY(VisibleAnywhere)
+	class UTimelineComponent* CrouchTimeline;
+
+	UPROPERTY(EditAnywhere, Category = "Timeline")
+	class UCurveFloat* CrouchTimelineFloatCurve;
+
+	FOnTimelineFloat UpdateCrouchCurve;
 
 	class AHGPlayerController* HGPlayerController;
 
