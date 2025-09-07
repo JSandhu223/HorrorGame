@@ -60,6 +60,13 @@ void AL1Character::BeginPlay()
 {
 	Super::BeginPlay();
 
+	UpdateCrouchCurve.BindDynamic(this, &AL1Character::UpdateCrouchTimeline);
+	// If we have a float curve, bind it's graph to our update function
+	if (CrouchTimelineFloatCurve)
+	{
+		CrouchTimeline->AddInterpFloat(CrouchTimelineFloatCurve, UpdateCrouchCurve);
+	}
+
 	HGPlayerController = this->GetController<AHGPlayerController>();
 
 	MovementComp->Initialize(this);
@@ -118,11 +125,18 @@ AActor* AL1Character::LineTrace(float Length, bool bDrawLine, FColor HitColor, F
 void AL1Character::ShortenPlayerCapsule()
 {
 	CapsuleComp->SetCapsuleHalfHeight(MovementComp->GetCrouchHalfHeight());
+	CrouchTimeline->Play();
 }
 
 void AL1Character::LengthenPlayerCapsule()
 {
 	CapsuleComp->SetCapsuleHalfHeight(88.0f);
+	CrouchTimeline->Reverse();
+}
+
+void AL1Character::UpdateCrouchTimeline(float Output)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Crouch value: %f"), Output);
 }
 
 // Called to bind functionality to input

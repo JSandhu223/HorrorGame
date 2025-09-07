@@ -13,6 +13,20 @@ class HORRORGAME_API AL1Character : public ACharacter
 {
 	GENERATED_BODY()
 
+/////////// TIMELINE ///////////////////////////
+private:
+	UPROPERTY(VisibleAnywhere)
+	class UTimelineComponent* CrouchTimeline;
+
+	UPROPERTY(EditAnywhere, Category = "Timeline")
+	class UCurveFloat* CrouchTimelineFloatCurve;
+
+	FOnTimelineFloat UpdateCrouchCurve;
+
+	UFUNCTION()
+	void UpdateCrouchTimeline(float Output);
+////////////////////////////////////////////////
+
 private:
 	bool bFlashlightOn;
 
@@ -35,14 +49,6 @@ private:
 
 	// This is our custom movement component that will handle sprinting and crouching
 	class UMovement* MovementComp;
-
-	UPROPERTY(VisibleAnywhere)
-	class UTimelineComponent* CrouchTimeline;
-
-	UPROPERTY(EditAnywhere, Category = "Timeline")
-	class UCurveFloat* CrouchTimelineFloatCurve;
-
-	FOnTimelineFloat UpdateCrouchCurve;
 
 	class AHGPlayerController* HGPlayerController;
 
