@@ -144,3 +144,8 @@ void UMovement::StopCrouch()
 {
 	SetPlayerMaxWalkSpeed(this->CrouchSpeed);
 }
+
+float UMovement::GetCrouchHalfHeight()
+{
+	return this->CrouchHalfHeight;
+}

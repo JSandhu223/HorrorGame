@@ -55,6 +55,8 @@ public:
 
 	void StopCrouch();
 
+	float GetCrouchHalfHeight();
+
 private:
 	void SetPlayerMaxWalkSpeed(float MaxWalkSpeed);
 

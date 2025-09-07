@@ -246,6 +246,8 @@ void AL1Character::_Crouch(const FInputActionInstance& Instance)
 		UE_LOG(LogTemp, Warning, TEXT("Crouched"));
 		MovementComp->StartCrouch();
 		bIsCrouched = true;
+
+		CapsuleComp->SetCapsuleHalfHeight(MovementComp->GetCrouchHalfHeight());
 	}
 	
 	else
@@ -253,5 +255,7 @@ void AL1Character::_Crouch(const FInputActionInstance& Instance)
 		UE_LOG(LogTemp, Warning, TEXT("Uncrouched"));
 		MovementComp->StopCrouch();
 		bIsCrouched = false;
+
+		CapsuleComp->SetCapsuleHalfHeight(88.0f);
 	}
 }
