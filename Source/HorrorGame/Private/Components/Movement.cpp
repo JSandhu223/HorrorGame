@@ -132,3 +132,11 @@ void UMovement::RegenerateStamina()
 		this->GetOwner()->GetWorldTimerManager().ClearTimer(this->RegenerateStaminaTimerHandle);
 	}
 }
+
+void UMovement::StartCrouch()
+{
+}
+
+void UMovement::StopCrouch()
+{
+}

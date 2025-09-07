@@ -236,9 +236,13 @@ void AL1Character::StopSprint(const FInputActionInstance& Instance)
 void AL1Character::_Crouch(const FInputActionInstance& Instance)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Crouched"));
+
+	MovementComp->StartCrouch();
 }
 
 void AL1Character::_Uncrouch(const FInputActionInstance& Instance)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Uncrouched"));
+
+	MovementComp->StopCrouch();
 }

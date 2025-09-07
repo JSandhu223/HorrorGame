@@ -51,6 +51,10 @@ public:
 
 	void StopSprint();
 
+	void StartCrouch();
+
+	void StopCrouch();
+
 private:
 	void SetPlayerMaxWalkSpeed(float MaxWalkSpeed);
 
