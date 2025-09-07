@@ -31,6 +31,7 @@ AL1Character::AL1Character()
 	bIsCrouched = false;
 
 	CapsuleComp = GetComponentByClass<UCapsuleComponent>();
+	OriginalCapsuleHalfHeight = CapsuleComp->GetUnscaledCapsuleHalfHeight();
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(this->RootComponent);
@@ -124,19 +125,18 @@ AActor* AL1Character::LineTrace(float Length, bool bDrawLine, FColor HitColor, F
 
 void AL1Character::ShortenPlayerCapsule()
 {
-	CapsuleComp->SetCapsuleHalfHeight(MovementComp->GetCrouchHalfHeight());
 	CrouchTimeline->Play();
 }
 
 void AL1Character::LengthenPlayerCapsule()
 {
-	CapsuleComp->SetCapsuleHalfHeight(88.0f);
 	CrouchTimeline->Reverse();
 }
 
 void AL1Character::UpdateCrouchTimeline(float Output)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Crouch value: %f"), Output);
+	// TODO: height needs to be between 44 and 88
+	CapsuleComp->SetCapsuleHalfHeight(Output);
 }
 
 // Called to bind functionality to input

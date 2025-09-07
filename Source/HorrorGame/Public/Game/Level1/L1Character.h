@@ -35,6 +35,8 @@ private:
 	// This will point to the default capsule component provided with our character
 	class UCapsuleComponent* CapsuleComp;
 
+	float OriginalCapsuleHalfHeight;
+
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
 
