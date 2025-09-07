@@ -15,6 +15,8 @@ class HORRORGAME_API AL1Character : public ACharacter
 private:
 	bool bFlashlightOn;
 
+	bool bIsCrouched;
+
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
 
@@ -94,7 +96,6 @@ private:
 	void StopSprint(const struct FInputActionInstance& Instance);
 
 	void _Crouch(const struct FInputActionInstance& Instance);
-	void _Uncrouch(const struct FInputActionInstance& Instance);
 
 protected:
 	// Called when the game starts or when spawned

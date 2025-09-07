@@ -26,6 +26,9 @@ AL1Character::AL1Character()
 	bUseControllerRotationYaw = true;
 	bUseControllerRotationPitch = true;
 
+	bFlashlightOn = false;
+	bIsCrouched = false;
+
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(this->RootComponent);
 	Camera->SetWorldLocation(FVector(0.0f, 0.0f, 60.0f));
@@ -39,7 +42,6 @@ AL1Character::AL1Character()
 
 	SpotLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("Spotlight"));
 	SpotLight->SetupAttachment(SpringArm);
-	this->bFlashlightOn = false;
 	SpotLight->SetVisibility(bFlashlightOn);
 
 	CharacterMovementComp = GetComponentByClass<UCharacterMovementComponent>();
@@ -126,7 +128,6 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AL1Character::Sprint);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AL1Character::StopSprint);
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &AL1Character::_Crouch);
-		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AL1Character::_Uncrouch);
 	}
 }
 
@@ -235,14 +236,17 @@ void AL1Character::StopSprint(const FInputActionInstance& Instance)
 
 void AL1Character::_Crouch(const FInputActionInstance& Instance)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Crouched"));
-
-	MovementComp->StartCrouch();
-}
-
-void AL1Character::_Uncrouch(const FInputActionInstance& Instance)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Uncrouched"));
-
-	MovementComp->StopCrouch();
+	if (!bIsCrouched)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Crouched"));
+		MovementComp->StartCrouch();
+		bIsCrouched = true;
+	}
+	
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Uncrouched"));
+		MovementComp->StopCrouch();
+		bIsCrouched = false;
+	}
 }

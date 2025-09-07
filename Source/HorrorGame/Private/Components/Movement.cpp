@@ -28,7 +28,7 @@ UMovement::UMovement()
 	StaminaDepletionRate = 0.1f;
 	StaminaRegenRate = 0.05f;
 
-	CrouchSpeed = 200.0f;
+	CrouchSpeed = 100.0f;
 	CrouchHalfHeight = 44.0f;
 }
 
@@ -135,8 +135,12 @@ void UMovement::RegenerateStamina()
 
 void UMovement::StartCrouch()
 {
+	this->GetOwner()->GetWorldTimerManager().ClearTimer(this->DepleteStaminaTimerHandle);
+
+	SetPlayerMaxWalkSpeed(this->CrouchSpeed);
 }
 
 void UMovement::StopCrouch()
 {
+	SetPlayerMaxWalkSpeed(this->CrouchSpeed);
 }
