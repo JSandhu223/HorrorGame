@@ -18,8 +18,8 @@ UMovement::UMovement()
 
 	PlayerRef = nullptr;
 
-	SprintSpeed = 600.0f;
-	WalkSpeed = 300.0f;
+	SprintSpeed = 800.0f;
+	WalkSpeed = 400.0f;
 	MaxStamina = 100.0f;
 	MinStamina = 0.0f;
 	CurrentStamina = 100.0f;
@@ -142,7 +142,7 @@ void UMovement::StartCrouch()
 
 void UMovement::StopCrouch()
 {
-	SetPlayerMaxWalkSpeed(this->CrouchSpeed);
+	SetPlayerMaxWalkSpeed(this->WalkSpeed);
 }
 
 float UMovement::GetCrouchHalfHeight()

@@ -265,7 +265,7 @@ void AL1Character::StopSprint(const FInputActionInstance& Instance)
 
 void AL1Character::_Crouch(const FInputActionInstance& Instance)
 {
-	if (!bIsCrouched)
+	/*if (!bIsCrouched)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Crouched"));
 		MovementComp->StartCrouch();
@@ -280,7 +280,9 @@ void AL1Character::_Crouch(const FInputActionInstance& Instance)
 		MovementComp->StopCrouch();
 		bIsCrouched = false;
 
-		
 		LengthenPlayerCapsule();
-	}
+	}*/
+
+	!bIsCrouched ? MovementComp->StartCrouch() : MovementComp->StopCrouch();
+	bIsCrouched = !bIsCrouched;
 }
