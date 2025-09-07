@@ -7,6 +7,7 @@
 #include "Game/HGPlayerController.h"
 #include "Actors/InteractableActor.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/SpotLightComponent.h"
 #include "Components/Movement.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -28,6 +29,8 @@ AL1Character::AL1Character()
 
 	bFlashlightOn = false;
 	bIsCrouched = false;
+
+	CapsuleComp = GetComponentByClass<UCapsuleComponent>();
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(this->RootComponent);
