@@ -27,6 +27,9 @@ UMovement::UMovement()
 	// These will be used with their respective timers
 	StaminaDepletionRate = 0.1f;
 	StaminaRegenRate = 0.05f;
+
+	CrouchSpeed = 200.0f;
+	CrouchHalfHeight = 44.0f;
 }
 
 // Called when the game starts
