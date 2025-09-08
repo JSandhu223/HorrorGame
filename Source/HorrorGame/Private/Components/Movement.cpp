@@ -67,7 +67,11 @@ void UMovement::SetPlayerMaxWalkSpeed(float MaxWalkSpeed)
 
 void UMovement::StartSprint()
 {
-	if (bIsCrouched) { return; }
+	// If the player sprints while crouching
+	if (bIsCrouched)
+	{
+		StopCrouch();
+	}
 
 	bool bPlayerHasStamina = CurrentStamina > MinStamina;
 	bool bPlayerIsMoving = PlayerRef->GetVelocity().Length() > 0.0f;
@@ -145,12 +149,14 @@ void UMovement::StartCrouch()
 
 	SetPlayerMaxWalkSpeed(this->CrouchSpeed);
 	Cast<AL1Character>(PlayerRef)->ShortenPlayerCapsule();
+	bIsCrouched = true;
 }
 
 void UMovement::StopCrouch()
 {
 	SetPlayerMaxWalkSpeed(this->WalkSpeed);
 	Cast<AL1Character>(PlayerRef)->LengthenPlayerCapsule();
+	bIsCrouched = false;
 }
 
 float UMovement::GetCrouchHalfHeight()
@@ -161,9 +167,4 @@ float UMovement::GetCrouchHalfHeight()
 bool UMovement::IsCrouched()
 {
 	return bIsCrouched;
-}
-
-void UMovement::SetIsCrouched(bool Value)
-{
-	bIsCrouched = Value;
 }

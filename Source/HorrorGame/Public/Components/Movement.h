@@ -61,8 +61,6 @@ public:
 
 	bool IsCrouched();
 
-	void SetIsCrouched(bool Value);
-
 private:
 	void SetPlayerMaxWalkSpeed(float MaxWalkSpeed);
 
