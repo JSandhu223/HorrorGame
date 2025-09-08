@@ -60,13 +60,13 @@ private:
 
 	AActor* LineTrace(float Length, bool bDrawLine, FColor HitColor = FColor::White, FColor NoHitColor = FColor::White);
 
-	void ShortenPlayerCapsule();
-
-	void LengthenPlayerCapsule();
-
 public:
 	// Sets default values for this character's properties
 	AL1Character();
+
+	void ShortenPlayerCapsule();
+
+	void LengthenPlayerCapsule();
 
 // Input Actions
 private:

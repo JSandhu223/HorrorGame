@@ -273,8 +273,6 @@ void AL1Character::_Crouch(const FInputActionInstance& Instance)
 		UE_LOG(LogTemp, Warning, TEXT("Crouched"));
 		MovementComp->StartCrouch();
 		MovementComp->SetIsCrouched(true);
-
-		ShortenPlayerCapsule();
 	}
 	
 	else
@@ -282,7 +280,5 @@ void AL1Character::_Crouch(const FInputActionInstance& Instance)
 		UE_LOG(LogTemp, Warning, TEXT("Uncrouched"));
 		MovementComp->StopCrouch();
 		MovementComp->SetIsCrouched(false);
-
-		LengthenPlayerCapsule();
 	}
 }

@@ -7,6 +7,7 @@
 #include "Engine/TimerHandle.h"
 #include "GameFramework/Actor.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Game/Level1/L1Character.h"
 
 
 // Sets default values for this component's properties
@@ -143,11 +144,13 @@ void UMovement::StartCrouch()
 	this->GetOwner()->GetWorldTimerManager().ClearTimer(this->DepleteStaminaTimerHandle);
 
 	SetPlayerMaxWalkSpeed(this->CrouchSpeed);
+	Cast<AL1Character>(PlayerRef)->ShortenPlayerCapsule();
 }
 
 void UMovement::StopCrouch()
 {
 	SetPlayerMaxWalkSpeed(this->WalkSpeed);
+	Cast<AL1Character>(PlayerRef)->LengthenPlayerCapsule();
 }
 
 float UMovement::GetCrouchHalfHeight()
