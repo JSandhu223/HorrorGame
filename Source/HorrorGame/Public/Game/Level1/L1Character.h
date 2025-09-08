@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Components/TimelineComponent.h" // included for declaring FOnTimelineFloat
 #include "L1Character.generated.h"
 
 
@@ -20,8 +19,6 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Timeline")
 	class UCurveFloat* CrouchTimelineFloatCurve;
-
-	FOnTimelineFloat UpdateCrouchCurve;
 
 	UFUNCTION()
 	void UpdateCrouchTimeline(float Output);

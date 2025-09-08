@@ -10,6 +10,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SpotLightComponent.h"
 #include "Components/Movement.h"
+#include "Components/TimelineComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "UMG/MainHUD.h"
 #include "Blueprint/UserWidget.h"
@@ -61,6 +62,7 @@ void AL1Character::BeginPlay()
 {
 	Super::BeginPlay();
 
+	FOnTimelineFloat UpdateCrouchCurve;
 	UpdateCrouchCurve.BindDynamic(this, &AL1Character::UpdateCrouchTimeline);
 	// If we have a float curve, bind it's graph to our update function
 	if (CrouchTimelineFloatCurve)
