@@ -41,6 +41,8 @@ private:
 
 	float CrouchHalfHeight;
 
+	bool bIsCrouched;
+
 public:	
 	// Sets default values for this component's properties
 	UMovement();
@@ -56,6 +58,10 @@ public:
 	void StopCrouch();
 
 	float GetCrouchHalfHeight();
+
+	bool IsCrouched();
+
+	void SetIsCrouched(bool Value);
 
 private:
 	void SetPlayerMaxWalkSpeed(float MaxWalkSpeed);

@@ -30,6 +30,7 @@ UMovement::UMovement()
 
 	CrouchSpeed = 100.0f;
 	CrouchHalfHeight = 44.0f;
+	bIsCrouched = false;
 }
 
 // Called when the game starts
@@ -65,6 +66,8 @@ void UMovement::SetPlayerMaxWalkSpeed(float MaxWalkSpeed)
 
 void UMovement::StartSprint()
 {
+	if (bIsCrouched) { return; }
+
 	bool bPlayerHasStamina = CurrentStamina > MinStamina;
 	bool bPlayerIsMoving = PlayerRef->GetVelocity().Length() > 0.0f;
 
@@ -84,6 +87,8 @@ void UMovement::StartSprint()
 
 void UMovement::StopSprint()
 {
+	if (bIsCrouched) { return; }
+
 	this->GetOwner()->GetWorldTimerManager().ClearTimer(this->DepleteStaminaTimerHandle);
 
 	SetPlayerMaxWalkSpeed(this->WalkSpeed);
@@ -148,4 +153,14 @@ void UMovement::StopCrouch()
 float UMovement::GetCrouchHalfHeight()
 {
 	return this->CrouchHalfHeight;
+}
+
+bool UMovement::IsCrouched()
+{
+	return bIsCrouched;
+}
+
+void UMovement::SetIsCrouched(bool Value)
+{
+	bIsCrouched = Value;
 }
