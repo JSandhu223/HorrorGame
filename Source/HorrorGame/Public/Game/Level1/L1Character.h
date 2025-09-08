@@ -4,16 +4,33 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-
 #include "L1Character.generated.h"
+
 
 UCLASS()
 class HORRORGAME_API AL1Character : public ACharacter
 {
 	GENERATED_BODY()
 
+/////////// TIMELINE ///////////////////////////
+private:
+	UPROPERTY(VisibleAnywhere)
+	class UTimelineComponent* CrouchTimeline;
+
+	UPROPERTY(EditAnywhere, Category = "Timeline")
+	class UCurveFloat* CrouchTimelineFloatCurve;
+
+	UFUNCTION()
+	void UpdateCrouchTimeline(float Output);
+////////////////////////////////////////////////
+
 private:
 	bool bFlashlightOn;
+
+	// This will point to the default capsule component provided with our character
+	class UCapsuleComponent* CapsuleComp;
+
+	float OriginalCapsuleHalfHeight;
 
 	UPROPERTY(VisibleAnywhere)
 	class UCameraComponent* Camera;
@@ -25,7 +42,10 @@ private:
 	class USpotLightComponent* SpotLight;
 
 	// This will point to the default character movement component on the Character class
-	class UCharacterMovementComponent* MovementComp;
+	class UCharacterMovementComponent* CharacterMovementComp;
+
+	// This is our custom movement component that will handle sprinting and crouching
+	class UMovement* MovementComp;
 
 	class AHGPlayerController* HGPlayerController;
 
@@ -43,6 +63,10 @@ private:
 public:
 	// Sets default values for this character's properties
 	AL1Character();
+
+	void ShortenPlayerCapsule();
+
+	void LengthenPlayerCapsule();
 
 // Input Actions
 private:
@@ -67,6 +91,12 @@ private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* FlashlightAction;
 
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* SprintAction;
+
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* CrouchAction;
+
 	void LookRight(const struct FInputActionInstance& Instance);
 
 	void LookUp(const struct FInputActionInstance& Instance);
@@ -80,6 +110,11 @@ private:
 	void Use(const struct FInputActionInstance& Instance);
 
 	void Flashlight(const struct FInputActionInstance& Instance);
+
+	void Sprint(const struct FInputActionInstance& Instance);
+	void StopSprint(const struct FInputActionInstance& Instance);
+
+	void _Crouch(const struct FInputActionInstance& Instance);
 
 protected:
 	// Called when the game starts or when spawned

@@ -33,7 +33,7 @@ void AInteractableDoor::BeginPlay()
 
 	UpdateFunctionFloat.BindDynamic(this, &AInteractableDoor::UpdateTimelineComp);
 
-	//If we have a float curve, bind it's graph to our update function
+	// If we have a float curve, bind it's graph to our update function
 	if (DoorTimelineFloatCurve)
 	{
 		DoorTimeline->AddInterpFloat(DoorTimelineFloatCurve, UpdateFunctionFloat);

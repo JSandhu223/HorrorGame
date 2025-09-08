@@ -7,7 +7,10 @@
 #include "Game/HGPlayerController.h"
 #include "Actors/InteractableActor.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/SpotLightComponent.h"
+#include "Components/Movement.h"
+#include "Components/TimelineComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "UMG/MainHUD.h"
 #include "Blueprint/UserWidget.h"
@@ -25,6 +28,12 @@ AL1Character::AL1Character()
 	bUseControllerRotationYaw = true;
 	bUseControllerRotationPitch = true;
 
+	bFlashlightOn = false;
+	bIsCrouched = false;
+
+	CapsuleComp = GetComponentByClass<UCapsuleComponent>();
+	OriginalCapsuleHalfHeight = CapsuleComp->GetUnscaledCapsuleHalfHeight();
+
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(this->RootComponent);
 	Camera->SetWorldLocation(FVector(0.0f, 0.0f, 60.0f));
@@ -38,11 +47,14 @@ AL1Character::AL1Character()
 
 	SpotLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("Spotlight"));
 	SpotLight->SetupAttachment(SpringArm);
-	this->bFlashlightOn = false;
 	SpotLight->SetVisibility(bFlashlightOn);
 
-	MovementComp = GetComponentByClass<UCharacterMovementComponent>();
-	MovementComp->MaxWalkSpeed = 600.0f;
+	CharacterMovementComp = GetComponentByClass<UCharacterMovementComponent>();
+	CharacterMovementComp->MaxWalkSpeed = 600.0f;
+
+	MovementComp = CreateDefaultSubobject<UMovement>(TEXT("Movement"));
+
+	CrouchTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("CrouchTimeline"));
 }
 
 // Called when the game starts or when spawned
@@ -50,9 +62,18 @@ void AL1Character::BeginPlay()
 {
 	Super::BeginPlay();
 
+	FOnTimelineFloat UpdateCrouchCurve;
+	UpdateCrouchCurve.BindDynamic(this, &AL1Character::UpdateCrouchTimeline);
+	// If we have a float curve, bind it's graph to our update function
+	if (CrouchTimelineFloatCurve)
+	{
+		CrouchTimeline->AddInterpFloat(CrouchTimelineFloatCurve, UpdateCrouchCurve);
+	}
+
 	HGPlayerController = this->GetController<AHGPlayerController>();
 
-	Initialize();
+	MovementComp->Initialize(this);
+	this->Initialize();
 }
 
 // Called every frame
@@ -104,6 +125,22 @@ AActor* AL1Character::LineTrace(float Length, bool bDrawLine, FColor HitColor, F
 	return OutHit.GetActor();
 }
 
+void AL1Character::ShortenPlayerCapsule()
+{
+	CrouchTimeline->Play();
+}
+
+void AL1Character::LengthenPlayerCapsule()
+{
+	CrouchTimeline->Reverse();
+}
+
+void AL1Character::UpdateCrouchTimeline(float Output)
+{
+	// TODO: height needs to be between 44 and 88
+	CapsuleComp->SetCapsuleHalfHeight(Output);
+}
+
 // Called to bind functionality to input
 void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -119,6 +156,9 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AL1Character::_Jump);
 		EnhancedInputComponent->BindAction(UseAction, ETriggerEvent::Started, this, &AL1Character::Use);
 		EnhancedInputComponent->BindAction(FlashlightAction, ETriggerEvent::Started, this, &AL1Character::Flashlight);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AL1Character::Sprint);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AL1Character::StopSprint);
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &AL1Character::_Crouch);
 	}
 }
 
@@ -209,4 +249,34 @@ void AL1Character::Flashlight(const FInputActionInstance& Instance)
 
 	// Equivalent code
 	SpotLight->SetVisibility(bFlashlightOn = !bFlashlightOn);
+}
+
+void AL1Character::Sprint(const FInputActionInstance& Instance)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Sprint key pressed"));
+
+	MovementComp->StartSprint();
+}
+
+void AL1Character::StopSprint(const FInputActionInstance& Instance)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Sprint key released"));
+
+	MovementComp->StopSprint();
+}
+
+void AL1Character::_Crouch(const FInputActionInstance& Instance)
+{
+	// TODO: move logic for resizing player capsule into our custom Movement component
+	if (!MovementComp->IsCrouched())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Crouched"));
+		MovementComp->StartCrouch();
+	}
+	
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Uncrouched"));
+		MovementComp->StopCrouch();
+	}
 }
