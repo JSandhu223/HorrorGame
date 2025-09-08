@@ -265,7 +265,8 @@ void AL1Character::StopSprint(const FInputActionInstance& Instance)
 
 void AL1Character::_Crouch(const FInputActionInstance& Instance)
 {
-	/*if (!bIsCrouched)
+	// TODO: move logic for resizing player capsule into our custom Movement component
+	if (!bIsCrouched)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Crouched"));
 		MovementComp->StartCrouch();
@@ -281,8 +282,8 @@ void AL1Character::_Crouch(const FInputActionInstance& Instance)
 		bIsCrouched = false;
 
 		LengthenPlayerCapsule();
-	}*/
+	}
 
-	!bIsCrouched ? MovementComp->StartCrouch() : MovementComp->StopCrouch();
-	bIsCrouched = !bIsCrouched;
+	/*!bIsCrouched ? MovementComp->StartCrouch() : MovementComp->StopCrouch();
+	bIsCrouched = !bIsCrouched;*/
 }
