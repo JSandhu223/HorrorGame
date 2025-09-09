@@ -18,6 +18,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "LookSensitivity")
 	float LookSensitivity;
 
+	int32 InventorySlots;
+
 public:
 	AHGPlayerController();
 

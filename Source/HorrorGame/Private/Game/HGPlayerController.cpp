@@ -8,6 +8,7 @@
 AHGPlayerController::AHGPlayerController()
 {
 	LookSensitivity = 0.8f;
+	InventorySlots = 8;
 }
 
 void AHGPlayerController::BeginPlay()
