@@ -39,3 +39,8 @@ float AHGPlayerController::GetLookSensitivity()
 {
 	return this->LookSensitivity;
 }
+
+int32 AHGPlayerController::GetInventorySlots()
+{
+	return this->InventorySlots;
+}

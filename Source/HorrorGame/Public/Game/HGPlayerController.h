@@ -25,6 +25,8 @@ public:
 
 	float GetLookSensitivity();
 
+	int32 GetInventorySlots();
+
 protected:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputMappingContext* PlayerContext;
