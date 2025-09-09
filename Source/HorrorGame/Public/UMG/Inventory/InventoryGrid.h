@@ -14,6 +14,13 @@ class HORRORGAME_API UInventoryGrid : public UUserWidget
 {
 	GENERATED_BODY()
 
+private:
+	// This will be set to WBP_InventorySlot from the editor
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UInventorySlot> InventorySlotBP;
+
+	TArray<class UInventorySlot*> SlotsArray;
+
 // THESE WIDGETS WILL BE BOUND TO THE WIDGETS CREATED IN THE BLUEPRINT CLASS
 public:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
