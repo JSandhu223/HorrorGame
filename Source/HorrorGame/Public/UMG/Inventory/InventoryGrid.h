@@ -14,7 +14,12 @@ class HORRORGAME_API UInventoryGrid : public UUserWidget
 {
 	GENERATED_BODY()
 
+// THESE WIDGETS WILL BE BOUND TO THE WIDGETS CREATED IN THE BLUEPRINT CLASS
+public:
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	class UUniformGridPanel* InventoryGridPanel;
+
 protected:
 	virtual void NativeConstruct() override;
-	
+
 };

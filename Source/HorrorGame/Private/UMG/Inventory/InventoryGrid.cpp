@@ -4,6 +4,7 @@
 #include "UMG/Inventory/InventoryGrid.h"
 #include "Game/HGPlayerController.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/UniformGridPanel.h"
 
 
 void UInventoryGrid::NativeConstruct()
