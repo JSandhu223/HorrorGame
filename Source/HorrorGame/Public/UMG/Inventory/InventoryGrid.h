@@ -15,6 +15,6 @@ class HORRORGAME_API UInventoryGrid : public UUserWidget
 	GENERATED_BODY()
 
 protected:
-	virtual void NativePreConstruct() override;
+	virtual void NativeConstruct() override;
 	
 };

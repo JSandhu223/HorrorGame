@@ -6,7 +6,13 @@
 #include "Kismet/GameplayStatics.h"
 
 
-void UInventoryGrid::NativePreConstruct()
+void UInventoryGrid::NativeConstruct()
 {
+	Super::NativeConstruct();
+
 	AHGPlayerController* PlayerController = Cast<AHGPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+	for (int32 i = 0; i < PlayerController->GetInventorySlots(); i++)
+	{
+		// Create widget of type UInventorySlot and store them in an array
+	}
 }
