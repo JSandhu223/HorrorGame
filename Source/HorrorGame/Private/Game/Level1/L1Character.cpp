@@ -29,7 +29,6 @@ AL1Character::AL1Character()
 	bUseControllerRotationPitch = true;
 
 	bFlashlightOn = false;
-	bIsPaused = false;
 	bIsCrouched = false;
 
 	CapsuleComp = GetComponentByClass<UCapsuleComponent>();
@@ -285,9 +284,15 @@ void AL1Character::_Crouch(const FInputActionInstance& Instance)
 
 void AL1Character::Inventory(const FInputActionInstance& Instance)
 {
-	bIsPaused = !bIsPaused;
-	if (bIsPaused)
+	if (!bIsInventoryOpen)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Inventory key pressed"));
+		bIsInventoryOpen = true;
+		UE_LOG(LogTemp, Warning, TEXT("Inventory opened"));
+	}
+
+	else
+	{
+		bIsInventoryOpen = false;
+		UE_LOG(LogTemp, Warning, TEXT("Inventory closed"));
 	}
 }

@@ -27,7 +27,7 @@ private:
 private:
 	bool bFlashlightOn;
 
-	bool bIsPaused;
+	bool bIsInventoryOpen;
 
 	// This will point to the default capsule component provided with our character
 	class UCapsuleComponent* CapsuleComp;
