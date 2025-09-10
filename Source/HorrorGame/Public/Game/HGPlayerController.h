@@ -38,8 +38,6 @@ public:
 
 	bool IsInventoryOpen();
 
-	void SetIsInventoryOpen(bool Value);
-
 protected:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputMappingContext* PlayerContext;

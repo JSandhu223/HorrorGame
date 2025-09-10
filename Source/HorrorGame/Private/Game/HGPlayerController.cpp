@@ -89,8 +89,3 @@ bool AHGPlayerController::IsInventoryOpen()
 {
 	return this->bIsInventoryOpen;
 }
-
-void AHGPlayerController::SetIsInventoryOpen(bool Value)
-{
-	this->bIsInventoryOpen = Value;
-}
