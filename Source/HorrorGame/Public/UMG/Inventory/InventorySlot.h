@@ -25,5 +25,5 @@ public:
 	class UOverlay* Overlay;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	class UImage* Image;
+	class UImage* SlotImage;
 };
