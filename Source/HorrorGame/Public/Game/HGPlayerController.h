@@ -20,15 +20,25 @@ private:
 
 	int32 InventorySlots;
 
+	bool bIsInventoryOpen;
+
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<class UInventoryMenu> InventoryMenuBP;
+
+	class UInventoryMenu* InventoryMenuRef;
 
 public:
 	AHGPlayerController();
 
+	void ToggleInventory();
+
 	float GetLookSensitivity();
 
 	int32 GetInventorySlots();
+
+	bool IsInventoryOpen();
+
+	void SetIsInventoryOpen(bool Value);
 
 protected:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")

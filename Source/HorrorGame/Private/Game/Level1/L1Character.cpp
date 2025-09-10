@@ -284,15 +284,15 @@ void AL1Character::_Crouch(const FInputActionInstance& Instance)
 
 void AL1Character::Inventory(const FInputActionInstance& Instance)
 {
-	if (!bIsInventoryOpen)
+	if (!HGPlayerController->IsInventoryOpen())
 	{
-		bIsInventoryOpen = true;
 		UE_LOG(LogTemp, Warning, TEXT("Inventory opened"));
 	}
 
 	else
 	{
-		bIsInventoryOpen = false;
 		UE_LOG(LogTemp, Warning, TEXT("Inventory closed"));
 	}
+
+	HGPlayerController->ToggleInventory();
 }
