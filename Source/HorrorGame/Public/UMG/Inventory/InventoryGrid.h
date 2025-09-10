@@ -21,6 +21,8 @@ private:
 
 	TArray<class UInventorySlot*> SlotsArray;
 
+	int32 SlotsPerRow;
+
 // THESE WIDGETS WILL BE BOUND TO THE WIDGETS CREATED IN THE BLUEPRINT CLASS
 public:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
