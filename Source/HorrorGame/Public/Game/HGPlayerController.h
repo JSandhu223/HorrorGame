@@ -20,6 +20,9 @@ private:
 
 	int32 InventorySlots;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UInventoryMenu> InventoryMenuBP;
+
 public:
 	AHGPlayerController();
 
