@@ -27,6 +27,8 @@ private:
 private:
 	bool bFlashlightOn;
 
+	bool bIsPaused;
+
 	// This will point to the default capsule component provided with our character
 	class UCapsuleComponent* CapsuleComp;
 
@@ -97,6 +99,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* CrouchAction;
 
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* InventoryAction;
+
 	void LookRight(const struct FInputActionInstance& Instance);
 
 	void LookUp(const struct FInputActionInstance& Instance);
@@ -115,6 +120,8 @@ private:
 	void StopSprint(const struct FInputActionInstance& Instance);
 
 	void _Crouch(const struct FInputActionInstance& Instance);
+
+	void Inventory(const struct FInputActionInstance& Instance);
 
 protected:
 	// Called when the game starts or when spawned
