@@ -10,12 +10,12 @@ struct FItemData
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(VisibleAnywhere)
 	FName ItemName;
 
 	UPROPERTY(EditAnywhere)
 	UTexture2D* Icon;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(VisibleAnywhere)
 	int32 MaxStackAmount;
 };

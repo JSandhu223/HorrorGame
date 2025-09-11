@@ -14,4 +14,6 @@ class HORRORGAME_API AFlashlightBattery : public AInventoryItem
 {
 	GENERATED_BODY()
 	
+public:
+	AFlashlightBattery();
 };
