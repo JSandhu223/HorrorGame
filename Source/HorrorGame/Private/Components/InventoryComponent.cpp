@@ -16,7 +16,6 @@ UInventoryComponent::UInventoryComponent()
 	// ...
 }
 
-
 // Called when the game starts
 void UInventoryComponent::BeginPlay()
 {
@@ -26,7 +25,6 @@ void UInventoryComponent::BeginPlay()
 	InventorySlots.Init(FInventoryItems(), PlayerController->GetInventorySlots());
 }
 
-
 // Called every frame
 void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -35,3 +33,6 @@ void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 	// ...
 }
 
+void UInventoryComponent::AddItem(AInventoryItem* Item, int32 Amount)
+{
+}

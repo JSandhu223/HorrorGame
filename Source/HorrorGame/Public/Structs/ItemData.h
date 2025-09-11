@@ -12,4 +12,5 @@ struct FItemData
 
 	FName* ItemName;
 	UTexture2D* Icon;
+	int32 MaxStackAmount;
 };
