@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Structs/ItemData.h"
 #include "InventorySlot.generated.h"
 
 /**
@@ -26,4 +27,9 @@ public:
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	class UImage* SlotImage;
+
+private:
+	FItemData ItemData;
+
+	int32 Amount;
 };
