@@ -2,6 +2,9 @@
 
 
 #include "Components/InventoryComponent.h"
+#include "Game/HGPlayerController.h"
+#include "Kismet/GameplayStatics.h"
+
 
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
@@ -19,8 +22,8 @@ void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
+	AHGPlayerController* PlayerController = Cast<AHGPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+	InventorySlots.Init(FInventoryItems(), PlayerController->GetInventorySlots());
 }
 
 
