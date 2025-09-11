@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "ItemData.generated.h"
 
-USTRUCT(BlueprintType)
+USTRUCT()
 struct FItemData
 {
 	GENERATED_BODY()

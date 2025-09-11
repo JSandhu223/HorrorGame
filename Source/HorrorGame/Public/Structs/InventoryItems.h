@@ -11,6 +11,9 @@ struct FInventoryItems
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditAnywhere, Category = "Inventory")
 	TSubclassOf<AInventoryItem> Item;
+
+	UPROPERTY(EditAnywhere, Category = "Inventory")
 	int32 Amount;
 };
