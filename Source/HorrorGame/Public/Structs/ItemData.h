@@ -5,12 +5,17 @@
 #include "CoreMinimal.h"
 #include "ItemData.generated.h"
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FItemData
 {
 	GENERATED_BODY()
 
-	FName* ItemName;
+	UPROPERTY(EditAnywhere)
+	FName ItemName;
+
+	UPROPERTY(EditAnywhere)
 	UTexture2D* Icon;
+
+	UPROPERTY(EditAnywhere)
 	int32 MaxStackAmount;
 };
