@@ -11,11 +11,11 @@ struct FItemData
 	GENERATED_BODY()
 
 	UPROPERTY(VisibleAnywhere)
-	FName ItemName;
+	FName ItemName = FName("None");
 
 	UPROPERTY(EditAnywhere)
-	UTexture2D* Icon;
+	UTexture2D* Icon = nullptr;
 
 	UPROPERTY(VisibleAnywhere)
-	int32 MaxStackAmount;
+	int32 MaxStackAmount = 0;
 };
