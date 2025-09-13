@@ -13,5 +13,7 @@ UCLASS()
 class HORRORGAME_API AFlashlightBatteryPickup : public APickup
 {
 	GENERATED_BODY()
-	
+
+public:
+	AFlashlightBatteryPickup();
 };

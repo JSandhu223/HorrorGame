@@ -3,3 +3,8 @@
 
 #include "Actors/Inventory/Pickups/FlashlightBatteryPickup.h"
 
+
+AFlashlightBatteryPickup::AFlashlightBatteryPickup()
+{
+	this->Amount = 1;
+}

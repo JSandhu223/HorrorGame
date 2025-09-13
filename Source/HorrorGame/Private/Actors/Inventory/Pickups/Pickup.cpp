@@ -22,7 +22,6 @@ APickup::APickup()
 	CollisionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
 	CollisionSphere->SetupAttachment(SceneRoot);
 	CollisionSphere->SetSphereRadius(100.0f);
-	CollisionSphere->OnComponentBeginOverlap.AddDynamic(this, &APickup::OnSphereOverlap);
 }
 
 // Called when the game starts or when spawned
@@ -30,6 +29,7 @@ void APickup::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	CollisionSphere->OnComponentBeginOverlap.AddDynamic(this, &APickup::OnSphereOverlap);
 }
 
 // Called every frame
@@ -43,6 +43,7 @@ void APickup::OnSphereOverlap(class UPrimitiveComponent* OverlappedComp, AActor*
 {
 	if (AL1Character* PlayerRef = Cast<AL1Character>(OtherActor))
 	{
+		UE_LOG(LogTemp, Warning, TEXT("%s collided with %s"), *this->GetName(), *OtherActor->GetName());
 		UInventoryComponent* PlayerInventoryComp = PlayerRef->GetInventoryComp();
 		bool bIsSuccess = PlayerInventoryComp->AddItem(this->Item, this->Amount);
 		if (bIsSuccess)

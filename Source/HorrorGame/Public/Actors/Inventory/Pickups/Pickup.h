@@ -21,9 +21,11 @@ private:
 	UPROPERTY(EditAnywhere)
 	class USphereComponent* CollisionSphere;
 
-private:
+protected:
+	UPROPERTY(VisibleAnywhere)
 	TSubclassOf<class AInventoryItem> Item;
 
+	UPROPERTY(VisibleAnywhere)
 	int32 Amount;
 	
 public:	
@@ -31,6 +33,7 @@ public:
 	APickup();
 
 private:
+	UFUNCTION()
 	void OnSphereOverlap(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 protected:
