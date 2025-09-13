@@ -39,7 +39,7 @@ bool UInventoryComponent::CheckForEmptySlot(int32& OutIndex)
 {
 	for (int32 i = 0; i < InventorySlots.Num(); i++)
 	{
-		if (!UKismetSystemLibrary::IsValid(InventorySlots[i].Item))
+		if (!UKismetSystemLibrary::IsValidClass(InventorySlots[i].Item))
 		{
 			OutIndex = i;
 			return true;
