@@ -67,3 +67,8 @@ bool UInventoryComponent::AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount
 	InventorySlots[OutIndex] = FInventoryItems(Item, Amount);
 	return true;
 }
+
+FInventoryItems UInventoryComponent::GetItemAtIndex(int32 Index)
+{
+	return InventorySlots[Index];
+}

@@ -25,6 +25,8 @@ public:
 
 	bool AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount);
 
+	FInventoryItems GetItemAtIndex(int32 Index);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
