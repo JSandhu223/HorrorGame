@@ -72,6 +72,8 @@ public:
 
 	void LengthenPlayerCapsule();
 
+	UInventoryComponent* GetInventoryComp();
+
 // Input Actions
 private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")

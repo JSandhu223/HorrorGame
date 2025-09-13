@@ -138,6 +138,11 @@ void AL1Character::LengthenPlayerCapsule()
 	CrouchTimeline->Reverse();
 }
 
+UInventoryComponent* AL1Character::GetInventoryComp()
+{
+	return this->InventoryComp;
+}
+
 void AL1Character::UpdateCrouchTimeline(float Output)
 {
 	// TODO: height needs to be between 44 and 88

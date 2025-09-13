@@ -3,6 +3,8 @@
 
 #include "Actors/Inventory/Pickups/Pickup.h"
 #include "Components/SphereComponent.h"
+#include "Game/Level1/L1Character.h"
+#include "Components/InventoryComponent.h"
 
 
 // Sets default values
@@ -20,6 +22,7 @@ APickup::APickup()
 	CollisionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
 	CollisionSphere->SetupAttachment(SceneRoot);
 	CollisionSphere->SetSphereRadius(100.0f);
+	CollisionSphere->OnComponentBeginOverlap.AddDynamic(this, &APickup::OnSphereOverlap);
 }
 
 // Called when the game starts or when spawned
@@ -36,3 +39,15 @@ void APickup::Tick(float DeltaTime)
 
 }
 
+void APickup::OnSphereOverlap(class UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (AL1Character* PlayerRef = Cast<AL1Character>(OtherActor))
+	{
+		UInventoryComponent* PlayerInventoryComp = PlayerRef->GetInventoryComp();
+		bool bIsSuccess = PlayerInventoryComp->AddItem(this->Item, this->Amount);
+		if (bIsSuccess)
+		{
+			this->Destroy();
+		}
+	}
+}
