@@ -3,6 +3,8 @@
 
 #include "Components/InventoryComponent.h"
 #include "Game/HGPlayerController.h"
+#include "UMG/Inventory/InventoryMenu.h"
+#include "UMG/Inventory/InventoryGrid.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -75,5 +77,5 @@ FInventoryItems UInventoryComponent::GetItemAtIndex(int32 Index)
 
 void UInventoryComponent::UpdateInventorySlot(int32 Index)
 {
-	
+	PlayerController->GetInventoryMenuRef()->WBP_InventoryGrid->GetSlotsArray();
 }

@@ -28,6 +28,9 @@ public:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	class UUniformGridPanel* InventoryGridPanel;
 
+public:
+	TArray<class UInventorySlot*>  GetSlotsArray();
+
 protected:
 	virtual void NativeConstruct() override;
 

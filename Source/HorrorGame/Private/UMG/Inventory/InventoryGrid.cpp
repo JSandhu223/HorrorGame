@@ -28,3 +28,8 @@ void UInventoryGrid::NativeConstruct()
 	//UE_LOG(LogTemp, Warning, TEXT("SlotsArray[0]: %s"), *SlotsArray[0]->GetName());
 	//UE_LOG(LogTemp, Warning, TEXT("SlotsArray length: %d"), SlotsArray.Num());
 }
+
+TArray<class UInventorySlot*> UInventoryGrid::GetSlotsArray()
+{
+	return this->SlotsArray;
+}
