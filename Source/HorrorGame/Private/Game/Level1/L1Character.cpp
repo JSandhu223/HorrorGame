@@ -10,6 +10,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SpotLightComponent.h"
 #include "Components/Movement.h"
+#include "Components/InventoryComponent.h"
 #include "Components/TimelineComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "UMG/MainHUD.h"
@@ -53,6 +54,8 @@ AL1Character::AL1Character()
 	CharacterMovementComp->MaxWalkSpeed = 600.0f;
 
 	MovementComp = CreateDefaultSubobject<UMovement>(TEXT("Movement"));
+
+	InventoryComp = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComp"));
 
 	CrouchTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("CrouchTimeline"));
 }

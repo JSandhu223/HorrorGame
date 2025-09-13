@@ -21,7 +21,9 @@ public:
 	// Sets default values for this component's properties
 	UInventoryComponent();
 
-	void AddItem(AInventoryItem* Item, int32 Amount);
+	bool CheckForEmptySlot(int32 OutIndex);
+
+	bool AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount);
 
 protected:
 	// Called when the game starts

@@ -25,3 +25,7 @@ void AInventoryItem::Tick(float DeltaTime)
 
 }
 
+FItemData AInventoryItem::GetItemData()
+{
+	return this->ItemData;
+}

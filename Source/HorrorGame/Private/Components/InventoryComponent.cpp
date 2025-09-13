@@ -4,6 +4,7 @@
 #include "Components/InventoryComponent.h"
 #include "Game/HGPlayerController.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 
 // Sets default values for this component's properties
@@ -22,6 +23,7 @@ void UInventoryComponent::BeginPlay()
 	Super::BeginPlay();
 
 	AHGPlayerController* PlayerController = Cast<AHGPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+	// Initialize the array with default struct instances
 	InventorySlots.Init(FInventoryItems(), PlayerController->GetInventorySlots());
 }
 
@@ -33,6 +35,35 @@ void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 	// ...
 }
 
-void UInventoryComponent::AddItem(AInventoryItem* Item, int32 Amount)
+bool UInventoryComponent::CheckForEmptySlot(int32 OutIndex)
 {
+	for (int32 i = 0; i < InventorySlots.Num(); i++)
+	{
+		if (!UKismetSystemLibrary::IsValid(InventorySlots[i].Item))
+		{
+			OutIndex = i;
+			return true;
+		}
+	}
+
+	// No empty slot was found
+	OutIndex = -1;
+	return false;
+}
+
+bool UInventoryComponent::AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount)
+{
+	//Item->GetItemData().MaxStackAmount;
+	Item.GetDefaultObject()->GetItemData().MaxStackAmount;
+
+	int32 OutIndex = 0;
+	bool HasEmptySlot = CheckForEmptySlot(OutIndex); // sets OutIndex to -1 if false
+	if (!HasEmptySlot)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No free slots!"));
+		return false;
+	}
+
+	InventorySlots[OutIndex] = FInventoryItems(Item, Amount);
+	return true;
 }

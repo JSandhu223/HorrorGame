@@ -45,7 +45,11 @@ private:
 	class UCharacterMovementComponent* CharacterMovementComp;
 
 	// This is our custom movement component that will handle sprinting and crouching
+	UPROPERTY(EditAnywhere)
 	class UMovement* MovementComp;
+
+	UPROPERTY(EditAnywhere)
+	class UInventoryComponent* InventoryComp;
 
 	class AHGPlayerController* HGPlayerController;
 
