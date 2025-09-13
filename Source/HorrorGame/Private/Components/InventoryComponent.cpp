@@ -22,7 +22,7 @@ void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	AHGPlayerController* PlayerController = Cast<AHGPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+	PlayerController = Cast<AHGPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 	// Initialize the array with default struct instances
 	InventorySlots.Init(FInventoryItems(nullptr, 0), PlayerController->GetInventorySlots());
 }
@@ -71,4 +71,9 @@ bool UInventoryComponent::AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount
 FInventoryItems UInventoryComponent::GetItemAtIndex(int32 Index)
 {
 	return InventorySlots[Index];
+}
+
+void UInventoryComponent::UpdateInventorySlot(int32 Index)
+{
+	
 }

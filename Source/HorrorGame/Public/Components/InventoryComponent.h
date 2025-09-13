@@ -27,6 +27,12 @@ public:
 
 	FInventoryItems GetItemAtIndex(int32 Index);
 
+	// Updates the widget
+	void UpdateInventorySlot(int32 Index);
+
+private:
+	class AHGPlayerController* PlayerController;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

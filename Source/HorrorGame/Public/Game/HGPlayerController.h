@@ -38,6 +38,8 @@ public:
 
 	bool IsInventoryOpen();
 
+	UInventoryMenu* GetInventoryMenuRef();
+
 protected:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputMappingContext* PlayerContext;

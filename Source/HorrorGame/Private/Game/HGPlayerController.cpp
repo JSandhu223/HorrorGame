@@ -89,3 +89,8 @@ bool AHGPlayerController::IsInventoryOpen()
 {
 	return this->bIsInventoryOpen;
 }
+
+UInventoryMenu* AHGPlayerController::GetInventoryMenuRef()
+{
+	return this->InventoryMenuRef;
+}
