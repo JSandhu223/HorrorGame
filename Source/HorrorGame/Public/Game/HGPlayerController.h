@@ -18,10 +18,25 @@ private:
 	UPROPERTY(EditAnywhere, Category = "LookSensitivity")
 	float LookSensitivity;
 
+	int32 InventorySlots;
+
+	bool bIsInventoryOpen;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<class UInventoryMenu> InventoryMenuBP;
+
+	class UInventoryMenu* InventoryMenuRef;
+
 public:
 	AHGPlayerController();
 
+	void ToggleInventory();
+
 	float GetLookSensitivity();
+
+	int32 GetInventorySlots();
+
+	bool IsInventoryOpen();
 
 protected:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")

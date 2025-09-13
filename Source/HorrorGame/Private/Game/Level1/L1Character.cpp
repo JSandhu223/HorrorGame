@@ -10,6 +10,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SpotLightComponent.h"
 #include "Components/Movement.h"
+#include "Components/InventoryComponent.h"
 #include "Components/TimelineComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "UMG/MainHUD.h"
@@ -53,6 +54,8 @@ AL1Character::AL1Character()
 	CharacterMovementComp->MaxWalkSpeed = 600.0f;
 
 	MovementComp = CreateDefaultSubobject<UMovement>(TEXT("Movement"));
+
+	InventoryComp = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComp"));
 
 	CrouchTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("CrouchTimeline"));
 }
@@ -135,6 +138,11 @@ void AL1Character::LengthenPlayerCapsule()
 	CrouchTimeline->Reverse();
 }
 
+UInventoryComponent* AL1Character::GetInventoryComp()
+{
+	return this->InventoryComp;
+}
+
 void AL1Character::UpdateCrouchTimeline(float Output)
 {
 	// TODO: height needs to be between 44 and 88
@@ -159,6 +167,7 @@ void AL1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Started, this, &AL1Character::Sprint);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &AL1Character::StopSprint);
 		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Started, this, &AL1Character::_Crouch);
+		EnhancedInputComponent->BindAction(InventoryAction, ETriggerEvent::Started, this, &AL1Character::Inventory);
 	}
 }
 
@@ -279,4 +288,19 @@ void AL1Character::_Crouch(const FInputActionInstance& Instance)
 		UE_LOG(LogTemp, Warning, TEXT("Uncrouched"));
 		MovementComp->StopCrouch();
 	}
+}
+
+void AL1Character::Inventory(const FInputActionInstance& Instance)
+{
+	if (!HGPlayerController->IsInventoryOpen())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Inventory opened"));
+	}
+
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Inventory closed"));
+	}
+
+	HGPlayerController->ToggleInventory();
 }

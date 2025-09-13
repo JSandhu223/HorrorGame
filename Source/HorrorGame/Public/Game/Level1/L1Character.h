@@ -45,7 +45,11 @@ private:
 	class UCharacterMovementComponent* CharacterMovementComp;
 
 	// This is our custom movement component that will handle sprinting and crouching
+	UPROPERTY(EditAnywhere)
 	class UMovement* MovementComp;
+
+	UPROPERTY(EditAnywhere)
+	class UInventoryComponent* InventoryComp;
 
 	class AHGPlayerController* HGPlayerController;
 
@@ -67,6 +71,8 @@ public:
 	void ShortenPlayerCapsule();
 
 	void LengthenPlayerCapsule();
+
+	UInventoryComponent* GetInventoryComp();
 
 // Input Actions
 private:
@@ -97,6 +103,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
 	class UInputAction* CrouchAction;
 
+	UPROPERTY(EditAnywhere, Category = "EnhancedInput")
+	class UInputAction* InventoryAction;
+
 	void LookRight(const struct FInputActionInstance& Instance);
 
 	void LookUp(const struct FInputActionInstance& Instance);
@@ -115,6 +124,8 @@ private:
 	void StopSprint(const struct FInputActionInstance& Instance);
 
 	void _Crouch(const struct FInputActionInstance& Instance);
+
+	void Inventory(const struct FInputActionInstance& Instance);
 
 protected:
 	// Called when the game starts or when spawned
