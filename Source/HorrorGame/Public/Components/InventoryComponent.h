@@ -21,7 +21,7 @@ public:
 	// Sets default values for this component's properties
 	UInventoryComponent();
 
-	bool CheckForEmptySlot(int32 OutIndex);
+	bool CheckForEmptySlot(int32& OutIndex);
 
 	bool AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount);
 

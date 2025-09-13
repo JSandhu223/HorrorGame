@@ -24,7 +24,7 @@ void UInventoryComponent::BeginPlay()
 
 	AHGPlayerController* PlayerController = Cast<AHGPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 	// Initialize the array with default struct instances
-	InventorySlots.Init(FInventoryItems(), PlayerController->GetInventorySlots());
+	InventorySlots.Init(FInventoryItems(nullptr, 0), PlayerController->GetInventorySlots());
 }
 
 // Called every frame
@@ -35,7 +35,7 @@ void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 	// ...
 }
 
-bool UInventoryComponent::CheckForEmptySlot(int32 OutIndex)
+bool UInventoryComponent::CheckForEmptySlot(int32& OutIndex)
 {
 	for (int32 i = 0; i < InventorySlots.Num(); i++)
 	{

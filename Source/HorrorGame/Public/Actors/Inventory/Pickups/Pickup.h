@@ -22,10 +22,10 @@ private:
 	class USphereComponent* CollisionSphere;
 
 protected:
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<class AInventoryItem> Item;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditAnywhere)
 	int32 Amount;
 	
 public:	
