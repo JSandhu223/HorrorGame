@@ -29,7 +29,17 @@ public:
 	class UImage* SlotImage;
 
 private:
+	int32 Index;
+
 	FItemData ItemData;
 
 	int32 Amount;
+
+private:
+	class AL1Character* PlayerRef;
+
+public:
+	void InitializeInventorySlot();
+
+	void UpdateSlot();
 };

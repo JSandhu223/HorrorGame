@@ -16,5 +16,8 @@ class HORRORGAME_API UInventoryMenu : public UUserWidget
 	
 public:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	class UInventoryGrid* WBP_InventoryGrid;
+	class UInventoryGrid* InventoryGridBP;
+
+protected:
+	virtual void NativeConstruct() override;
 };

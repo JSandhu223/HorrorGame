@@ -5,6 +5,7 @@
 #include "Game/HGPlayerController.h"
 #include "UMG/Inventory/InventoryMenu.h"
 #include "UMG/Inventory/InventoryGrid.h"
+#include "UMG/Inventory/InventorySlot.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -67,6 +68,9 @@ bool UInventoryComponent::AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount
 	}
 
 	InventorySlots[OutIndex] = FInventoryItems(Item, Amount);
+
+	UpdateInventorySlot(OutIndex);
+
 	return true;
 }
 
@@ -77,5 +81,6 @@ FInventoryItems UInventoryComponent::GetItemAtIndex(int32 Index)
 
 void UInventoryComponent::UpdateInventorySlot(int32 Index)
 {
-	PlayerController->GetInventoryMenuRef()->WBP_InventoryGrid->GetSlotsArray();
+	TArray<UInventorySlot*> SlotsArray = PlayerController->GetInventoryMenuRef()->InventoryGridBP->GetSlotsArray();
+	SlotsArray[Index]->UpdateSlot();
 }

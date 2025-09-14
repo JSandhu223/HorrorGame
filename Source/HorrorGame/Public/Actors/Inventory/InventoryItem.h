@@ -12,7 +12,7 @@ class HORRORGAME_API AInventoryItem : public AActor
 {
 	GENERATED_BODY()
 
-protected:
+public:
 	UPROPERTY(EditAnywhere, Category = "Inventory")
 	FItemData ItemData;
 	
