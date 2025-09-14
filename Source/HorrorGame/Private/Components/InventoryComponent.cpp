@@ -54,6 +54,7 @@ bool UInventoryComponent::CheckForEmptySlot(int32& OutIndex)
 	return false;
 }
 
+// This gets called when the player collides with the collision sphere on the 'APickup' actor
 bool UInventoryComponent::AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount)
 {
 	//Item->GetItemData().MaxStackAmount;

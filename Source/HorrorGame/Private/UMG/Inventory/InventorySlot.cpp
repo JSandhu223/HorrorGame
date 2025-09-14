@@ -9,6 +9,8 @@
 #include "Structs/InventoryItems.h"
 
 
+// This gets called on 'NativeConstruct' for the InventoryMenu for each element in SlotsArray.
+// Note that SlotsArray exists in the InventoryGrid class.
 void UInventorySlot::InitializeInventorySlot()
 {
 	PlayerRef = Cast<AL1Character>(UGameplayStatics::GetPlayerCharacter(this, 0));

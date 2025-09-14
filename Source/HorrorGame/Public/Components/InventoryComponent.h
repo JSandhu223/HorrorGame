@@ -23,7 +23,6 @@ public:
 
 	bool CheckForEmptySlot(int32& OutIndex);
 
-	// This gets called when the player picks up an item
 	bool AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount);
 
 	FInventoryItems GetItemAtIndex(int32 Index);

@@ -23,7 +23,7 @@ void UInventoryGrid::NativeConstruct()
 		InventoryGridPanel->AddChildToUniformGrid(SlotToAdd, i / SlotsPerRow, i % SlotsPerRow);
 		UE_LOG(LogTemp, Warning, TEXT("i = %d: %d, %d"), i, i / SlotsPerRow, i % SlotsPerRow);
 	}
-	InventoryGridPanel->AddChildToUniformGrid(SlotsArray[0], 0, 0);
+	//InventoryGridPanel->AddChildToUniformGrid(SlotsArray[0], 0, 0);
 
 	//UE_LOG(LogTemp, Warning, TEXT("SlotsArray[0]: %s"), *SlotsArray[0]->GetName());
 	//UE_LOG(LogTemp, Warning, TEXT("SlotsArray length: %d"), SlotsArray.Num());
