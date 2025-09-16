@@ -6,6 +6,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Components/InventoryComponent.h"
 #include "Components/Image.h"
+#include "Components/TextBlock.h"
+#include "Internationalization/Text.h"
 #include "Structs/InventoryItems.h"
 
 
@@ -21,7 +23,12 @@ void UInventorySlot::UpdateSlot()
 	AInventoryItem* Item = PlayerRef->GetInventoryComp()->GetItemAtIndex(this->Index).Item.GetDefaultObject();
 	UE_LOG(LogTemp, Warning, TEXT("UpdateSlot(): Index = %d"), this->Index);
 	UTexture2D* ItemIcon = Item->GetItemData().Icon;
-	this->SlotImage->SetBrushFromTexture(ItemIcon, true);
+	this->SlotImage->SetBrushFromTexture(ItemIcon, true);\
+
+	int32 ItemAmount = PlayerRef->GetInventoryComp()->GetItemAtIndex(this->Index).Amount;
+	//FNumberFormattingOptions FormattingOptions;
+	//FormattingOptions.UseGrouping = true;
+	this->AmountText->SetText(FText::AsNumber(ItemAmount));
 }
 
 void UInventorySlot::SetIndex(int IndexToSet)
