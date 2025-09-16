@@ -23,12 +23,13 @@ void UInventorySlot::UpdateSlot()
 	AInventoryItem* Item = PlayerRef->GetInventoryComp()->GetItemAtIndex(this->Index).Item.GetDefaultObject();
 	UE_LOG(LogTemp, Warning, TEXT("UpdateSlot(): Index = %d"), this->Index);
 	UTexture2D* ItemIcon = Item->GetItemData().Icon;
-	this->SlotImage->SetBrushFromTexture(ItemIcon, true);\
+	this->SlotImage->SetBrushFromTexture(ItemIcon, true);
 
 	int32 ItemAmount = PlayerRef->GetInventoryComp()->GetItemAtIndex(this->Index).Amount;
-	//FNumberFormattingOptions FormattingOptions;
-	//FormattingOptions.UseGrouping = true;
-	this->AmountText->SetText(FText::AsNumber(ItemAmount));
+	FNumberFormattingOptions FormattingOptions;
+	FormattingOptions.UseGrouping = true;
+	FormattingOptions.MinimumIntegralDigits = 1;
+	this->AmountText->SetText(FText::AsNumber(ItemAmount, &FormattingOptions));
 }
 
 void UInventorySlot::SetIndex(int IndexToSet)
