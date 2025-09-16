@@ -19,6 +19,12 @@ void UInventorySlot::InitializeInventorySlot()
 void UInventorySlot::UpdateSlot()
 {
 	AInventoryItem* Item = PlayerRef->GetInventoryComp()->GetItemAtIndex(this->Index).Item.GetDefaultObject();
+	UE_LOG(LogTemp, Warning, TEXT("UpdateSlot(): Index = %d"), this->Index);
 	UTexture2D* ItemIcon = Item->GetItemData().Icon;
 	this->SlotImage->SetBrushFromTexture(ItemIcon, true);
+}
+
+void UInventorySlot::SetIndex(int IndexToSet)
+{
+	this->Index = IndexToSet;
 }

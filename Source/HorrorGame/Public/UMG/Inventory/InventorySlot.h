@@ -42,4 +42,6 @@ public:
 	void InitializeInventorySlot();
 
 	void UpdateSlot();
+
+	void SetIndex(int IndexToSet);
 };
