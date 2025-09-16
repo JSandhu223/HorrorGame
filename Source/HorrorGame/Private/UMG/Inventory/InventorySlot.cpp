@@ -30,6 +30,8 @@ void UInventorySlot::UpdateSlot()
 	FormattingOptions.UseGrouping = true;
 	FormattingOptions.MinimumIntegralDigits = 1;
 	this->AmountText->SetText(FText::AsNumber(ItemAmount, &FormattingOptions));
+	// Hide text if the player only has one of the item in their inventory
+	ItemAmount == 1 ? this->AmountText->SetVisibility(ESlateVisibility::Hidden): this->AmountText->SetVisibility(ESlateVisibility::Visible);
 }
 
 void UInventorySlot::SetIndex(int IndexToSet)
