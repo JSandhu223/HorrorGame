@@ -28,6 +28,9 @@ public:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	class UImage* SlotImage;
 
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	class UTextBlock* AmountText;
+
 private:
 	int32 Index;
 
