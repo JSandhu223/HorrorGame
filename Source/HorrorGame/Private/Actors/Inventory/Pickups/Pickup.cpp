@@ -45,7 +45,8 @@ void APickup::OnSphereOverlap(class UPrimitiveComponent* OverlappedComp, AActor*
 	{
 		UE_LOG(LogTemp, Warning, TEXT("%s collided with %s"), *this->GetName(), *OtherActor->GetName());
 		UInventoryComponent* PlayerInventoryComp = PlayerRef->GetInventoryComp();
-		bool bIsSuccess = PlayerInventoryComp->AddItem(this->Item, this->Amount);
+		int32 OutRemainder = 0;
+		bool bIsSuccess = PlayerInventoryComp->AddItem(this->Item, this->Amount, OutRemainder);
 		if (bIsSuccess)
 		{
 			this->Destroy();

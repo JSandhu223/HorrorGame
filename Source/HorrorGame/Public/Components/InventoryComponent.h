@@ -23,7 +23,10 @@ public:
 
 	bool CheckForEmptySlot(int32& OutIndex);
 
-	bool AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount);
+	// Used to check for stacking
+	bool CheckForFreeSlot(TSubclassOf<AInventoryItem> Item, int32& OutIndex);
+
+	bool AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount, int32 &OutRemainder);
 
 	FInventoryItems GetItemAtIndex(int32 Index);
 

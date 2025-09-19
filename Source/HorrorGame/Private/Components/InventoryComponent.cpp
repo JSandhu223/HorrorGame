@@ -54,25 +54,98 @@ bool UInventoryComponent::CheckForEmptySlot(int32& OutIndex)
 	return false;
 }
 
-// This gets called when the player collides with the collision sphere on the 'APickup' actor
-bool UInventoryComponent::AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount)
+bool UInventoryComponent::CheckForFreeSlot(TSubclassOf<AInventoryItem> Item, int32& OutIndex)
 {
-	//Item->GetItemData().MaxStackAmount;
-	Item.GetDefaultObject()->GetItemData().MaxStackAmount;
-
-	int32 OutIndex = 0;
-	bool HasEmptySlot = CheckForEmptySlot(OutIndex); // sets OutIndex to -1 if false
-	if (!HasEmptySlot)
+	for (int32 i = 0; i < InventorySlots.Num(); i++)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("No free slots!"));
-		return false;
+		if ((InventorySlots[i].Item == Item) && (InventorySlots[i].Amount < Item.GetDefaultObject()->GetItemData().MaxStackAmount))
+		{
+			OutIndex = i;
+			return true;
+		}
 	}
 
-	InventorySlots[OutIndex] = FInventoryItems(Item, Amount);
+	OutIndex = -1;
+	return false;
+}
 
-	UpdateInventorySlot(OutIndex);
+// This gets called when the player collides with the collision sphere on the 'APickup' actor
+bool UInventoryComponent::AddItem(TSubclassOf<AInventoryItem> Item, int32 Amount, int32& OutRemainder)
+{
+	int32 ItemMaxStackAmount = Item.GetDefaultObject()->GetItemData().MaxStackAmount;
+	if (ItemMaxStackAmount > 1)
+	{
+		int32 OutIndex = 0;
+		bool bFreeSlotFound = CheckForFreeSlot(Item, OutIndex);
+		if (bFreeSlotFound)
+		{
+			int32 NewAmount = Amount + GetItemAtIndex(OutIndex).Amount;
+			if (NewAmount <= ItemMaxStackAmount)
+			{
+				InventorySlots[OutIndex] = FInventoryItems(Item, NewAmount);
+				UpdateInventorySlot(OutIndex);
+				OutRemainder = 0;
+				return true;
+			}
+			// If the amount to add exceeds the max stack amount, put the remaining number of items into the next available slot
+			else
+			{
+				InventorySlots[OutIndex] = FInventoryItems(Item, ItemMaxStackAmount);
+				UpdateInventorySlot(OutIndex);
+				OutRemainder = 0;
+				return AddItem(Item, NewAmount - ItemMaxStackAmount, OutRemainder);
+				//return true;
+			}
+		}
 
-	return true;
+		else
+		{
+			int32 OutIndex2 = 0;
+			bool HasEmptySlot = CheckForEmptySlot(OutIndex2);
+			if (!HasEmptySlot)
+			{
+				OutRemainder = Amount;
+				return false;
+			}
+			else
+			{
+				if (Amount > ItemMaxStackAmount)
+				{
+					InventorySlots[OutIndex2] = FInventoryItems(Item, ItemMaxStackAmount);
+					UpdateInventorySlot(OutIndex2);
+					OutRemainder = 0;
+					return AddItem(Item, Amount - ItemMaxStackAmount, OutRemainder);
+					//return true
+				}
+				else
+				{
+					InventorySlots[OutIndex2] = FInventoryItems(Item, Amount);
+					UpdateInventorySlot(OutIndex2);
+					OutRemainder = 0;
+					return true;
+				}
+			}
+		}
+	}
+
+	// If the item can't be stacked
+	else
+	{
+		int32 OutIndex = 0;
+		bool HasEmptySlot = CheckForEmptySlot(OutIndex); // sets OutIndex to -1 if false
+		if (!HasEmptySlot)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("No slots available!"));
+			OutRemainder = Amount;
+			return false;
+		}
+
+		InventorySlots[OutIndex] = FInventoryItems(Item, 1);
+		UpdateInventorySlot(OutIndex);
+
+		OutRemainder = 0;
+		return true;
+	}
 }
 
 FInventoryItems UInventoryComponent::GetItemAtIndex(int32 Index)
