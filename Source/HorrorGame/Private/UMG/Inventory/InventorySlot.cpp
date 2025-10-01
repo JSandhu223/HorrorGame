@@ -2,6 +2,7 @@
 
 
 #include "UMG/Inventory/InventorySlot.h"
+#include "UMG/Inventory/InventoryMenu.h"
 #include "Game/Level1/L1Character.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -15,9 +16,10 @@
 
 // This gets called on 'NativeConstruct' for the InventoryMenu for each element in SlotsArray.
 // Note that SlotsArray exists in the InventoryGrid class.
-void UInventorySlot::InitializeInventorySlot()
+void UInventorySlot::InitializeInventorySlot(UInventoryMenu* InventoryMenu)
 {
 	PlayerRef = Cast<AL1Character>(UGameplayStatics::GetPlayerCharacter(this, 0));
+	InventoryMenuRef = InventoryMenu;
 	//UpdateSlot();
 }
 

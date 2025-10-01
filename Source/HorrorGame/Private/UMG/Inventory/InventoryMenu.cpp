@@ -11,6 +11,6 @@ void UInventoryMenu::NativeConstruct()
 	TArray<UInventorySlot*> Slots = this->InventoryGridBP->GetSlotsArray();
 	for (UInventorySlot* S : Slots)
 	{
-		S->InitializeInventorySlot();
+		S->InitializeInventorySlot(this);
 	}
 }

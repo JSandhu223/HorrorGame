@@ -44,8 +44,10 @@ private:
 private:
 	class AL1Character* PlayerRef;
 
+	class UInventoryMenu* InventoryMenuRef;
+
 public:
-	void InitializeInventorySlot();
+	void InitializeInventorySlot(class UInventoryMenu* InventoryMenu);
 
 	void UpdateSlot();
 
