@@ -38,6 +38,9 @@ private:
 
 	int32 Amount;
 
+	UPROPERTY(EditAnywhere)
+	class UTexture2D* EmptyIcon;
+
 private:
 	class AL1Character* PlayerRef;
 

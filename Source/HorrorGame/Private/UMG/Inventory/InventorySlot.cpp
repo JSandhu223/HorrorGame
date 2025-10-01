@@ -4,9 +4,11 @@
 #include "UMG/Inventory/InventorySlot.h"
 #include "Game/Level1/L1Character.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Components/InventoryComponent.h"
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
+#include "Components/Button.h"
 #include "Internationalization/Text.h"
 #include "Structs/InventoryItems.h"
 
@@ -16,11 +18,25 @@
 void UInventorySlot::InitializeInventorySlot()
 {
 	PlayerRef = Cast<AL1Character>(UGameplayStatics::GetPlayerCharacter(this, 0));
+	//UpdateSlot();
 }
 
 void UInventorySlot::UpdateSlot()
 {
-	AInventoryItem* Item = PlayerRef->GetInventoryComp()->GetItemAtIndex(this->Index).Item.GetDefaultObject();
+	TSubclassOf<AInventoryItem> ItemRef = PlayerRef->GetInventoryComp()->GetItemAtIndex(this->Index).Item;
+	// Disable the inventory slot if there is no item in it
+	if (!UKismetSystemLibrary::IsValidClass(ItemRef))
+	{
+		SlotButton->SetIsEnabled(false);
+		SlotImage->SetBrushFromTexture(EmptyIcon, true);
+		AmountText->SetVisibility(ESlateVisibility::Hidden);
+		return;
+	}
+
+	// Enable the inventory slot when an item is added to it
+	SlotButton->SetIsEnabled(true);
+
+	AInventoryItem* Item = ItemRef.GetDefaultObject();
 	UE_LOG(LogTemp, Warning, TEXT("UpdateSlot(): Index = %d"), this->Index);
 	UTexture2D* ItemIcon = Item->GetItemData().Icon;
 	this->SlotImage->SetBrushFromTexture(ItemIcon, true);
