@@ -29,7 +29,7 @@ public:
 	class UUniformGridPanel* InventoryGridPanel;
 
 public:
-	TArray<class UInventorySlot*>  GetSlotsArray();
+	TArray<class UInventorySlot*> GetSlotsArray();
 
 protected:
 	virtual void NativeConstruct() override;
