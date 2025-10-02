@@ -14,6 +14,11 @@
 #include "Structs/InventoryItems.h"
 
 
+void UInventorySlot::NativeConstruct()
+{
+	SlotButton->OnReleased.AddDynamic(this, &UInventorySlot::OnSlotButtonRelease);
+}
+
 // This gets called on 'NativeConstruct' for the InventoryMenu for each element in SlotsArray.
 // Note that SlotsArray exists in the InventoryGrid class.
 void UInventorySlot::InitializeInventorySlot(UInventoryMenu* InventoryMenu)
@@ -52,7 +57,37 @@ void UInventorySlot::UpdateSlot()
 	ItemAmount <= 1 ? this->AmountText->SetVisibility(ESlateVisibility::Hidden): this->AmountText->SetVisibility(ESlateVisibility::Visible);
 }
 
+void UInventorySlot::SetRow(int RowToSet)
+{
+	this->Row = RowToSet;
+}
+
+int32 UInventorySlot::GetRow()
+{
+	return this->Row;
+}
+
+void UInventorySlot::SetColumn(int ColumnToSet)
+{
+	this->Column = ColumnToSet;
+}
+
+int32 UInventorySlot::GetColumn()
+{
+	return this->Column;
+}
+
+int32 UInventorySlot::GetIndex()
+{
+	return this->Index;
+}
+
 void UInventorySlot::SetIndex(int IndexToSet)
 {
 	this->Index = IndexToSet;
+}
+
+void UInventorySlot::OnSlotButtonRelease()
+{
+	InventoryMenuRef->OpenDropDownMenu(this);
 }

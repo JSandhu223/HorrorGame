@@ -34,6 +34,10 @@ public:
 private:
 	int32 Index;
 
+	int32 Row;
+
+	int32 Column;
+
 	FItemData ItemData;
 
 	int32 Amount;
@@ -46,10 +50,26 @@ private:
 
 	class UInventoryMenu* InventoryMenuRef;
 
+protected:
+	virtual void NativeConstruct() override;
+
 public:
 	void InitializeInventorySlot(class UInventoryMenu* InventoryMenu);
 
 	void UpdateSlot();
 
 	void SetIndex(int IndexToSet);
+
+	int32 GetIndex();
+
+	void SetRow(int RowToSet);
+
+	int32 GetRow();
+
+	void SetColumn(int ColumnToSet);
+
+	int32 GetColumn();
+
+	UFUNCTION()
+	void OnSlotButtonRelease();
 };

@@ -18,6 +18,12 @@ public:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	class UInventoryGrid* InventoryGridBP;
 
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	class UDropDown* DropDownBP;
+
 protected:
 	virtual void NativeConstruct() override;
+
+public:
+	void OpenDropDownMenu(class UInventorySlot* Slot);
 };
