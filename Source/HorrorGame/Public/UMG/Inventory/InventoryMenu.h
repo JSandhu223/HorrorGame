@@ -21,9 +21,17 @@ public:
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	class UDropDown* DropDownBP;
 
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	class UButton* CloseDropDownMenuButton;
+
 protected:
 	virtual void NativeConstruct() override;
 
+	virtual void NativeTick(const struct FGeometry& MyGeometry, float InDeltaTime) override;
+
 public:
-	void OpenDropDownMenu(class UInventorySlot* Slot);
+	void OpenDropDownMenu(class UInventorySlot* InventorySlot);
+
+	UFUNCTION()
+	void CloseDropDownMenu();
 };

@@ -8,15 +8,24 @@
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/GridSlot.h"
 #include "Components/UniformGridPanel.h"
+#include "Components/Button.h"
+#include "Kismet/GameplayStatics.h"
 
 
 void UInventoryMenu::NativeConstruct()
 {
+	CloseDropDownMenuButton->OnPressed.AddDynamic(this, &UInventoryMenu::CloseDropDownMenu);
+
 	TArray<UInventorySlot*> Slots = this->InventoryGridBP->GetSlotsArray();
 	for (UInventorySlot* S : Slots)
 	{
 		S->InitializeInventorySlot(this);
 	}
+}
+
+void UInventoryMenu::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+	CloseDropDownMenuButton->SetUserFocus(UGameplayStatics::GetPlayerController(this, 0));
 }
 
 void UInventoryMenu::OpenDropDownMenu(UInventorySlot* InventorySlot)
@@ -43,4 +52,11 @@ void UInventoryMenu::OpenDropDownMenu(UInventorySlot* InventorySlot)
 	);
 	
 	DropDownBP->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+	CloseDropDownMenuButton->SetVisibility(ESlateVisibility::Visible);
+}
+
+void UInventoryMenu::CloseDropDownMenu()
+{
+	DropDownBP->SetVisibility(ESlateVisibility::Collapsed);
+	CloseDropDownMenuButton->SetVisibility(ESlateVisibility::Collapsed);
 }
