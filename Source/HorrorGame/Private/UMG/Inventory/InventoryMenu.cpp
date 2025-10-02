@@ -42,4 +42,5 @@ void UInventoryMenu::OpenDropDownMenu(UInventorySlot* InventorySlot)
 		)
 	);
 	
+	DropDownBP->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 }
