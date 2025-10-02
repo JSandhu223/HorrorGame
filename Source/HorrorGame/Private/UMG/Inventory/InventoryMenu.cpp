@@ -30,17 +30,8 @@ void UInventoryMenu::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 
 void UInventoryMenu::OpenDropDownMenu(UInventorySlot* InventorySlot)
 {
+	// DEBUG
 	UE_LOG(LogTemp, Warning, TEXT("Called UInventoryMenu::OpenDropDownMenu"));
-	UInventorySlot* GridSlot = Cast<UInventorySlot>(UWidgetLayoutLibrary::SlotAsGridSlot(InventorySlot));
-
-	UE_LOG(LogTemp, Warning, TEXT("DesiredSize.X = %f, %d"), InventorySlot->GetDesiredSize().X, FMath::TruncToInt32(InventorySlot->GetDesiredSize().X));
-	UE_LOG(LogTemp, Warning, TEXT("DesiredSize.Y = %f, %d"), InventorySlot->GetDesiredSize().Y, FMath::TruncToInt32(InventorySlot->GetDesiredSize().Y));
-	// TODO: fix crash related to GridSlot
-	//UE_LOG(LogTemp, Warning, TEXT("GridSlot = %s"), *GridSlot->GetName());
-	//UE_LOG(LogTemp, Warning, TEXT("GridSlot Row = %d"), GridSlot->Row);
-	//UE_LOG(LogTemp, Warning, TEXT("GridSlot Column = %d"), GridSlot->Column);
-	//UE_LOG(LogTemp, Warning, TEXT("New X = %d"), (GridSlot->Row + 1) * FMath::TruncToInt32(InventorySlot->GetDesiredSize().X));
-	//UE_LOG(LogTemp, Warning, TEXT("New Y = %d"), (GridSlot->Column + 1) * FMath::TruncToInt32(InventorySlot->GetDesiredSize().Y));
 
 	FMargin PaddingMargins = InventoryGridBP->InventoryGridPanel->GetSlotPadding();
 

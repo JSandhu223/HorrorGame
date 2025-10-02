@@ -19,12 +19,14 @@ void UInventoryGrid::NativeConstruct()
 	{
 		// Create widget of type UInventorySlot and store them in an array
 		UInventorySlot* SlotToAdd = CreateWidget<UInventorySlot>(GetWorld(), InventorySlotBP);
+		int32 Row = i / SlotsPerRow;
+		int32 Column = i % SlotsPerRow;
 		SlotToAdd->SetIndex(i); // possible REFACTOR: move this line to constructor in UInventorySlot
-		SlotToAdd->SetRow(i / SlotsPerRow);
-		SlotToAdd->SetColumn(i % SlotsPerRow);
+		SlotToAdd->SetRow(Row);
+		SlotToAdd->SetColumn(Column);
 		this->SlotsArray.Add(SlotToAdd);
-		InventoryGridPanel->AddChildToUniformGrid(SlotToAdd, i / SlotsPerRow, i % SlotsPerRow);
-		UE_LOG(LogTemp, Warning, TEXT("i = %d: %d, %d"), i, i / SlotsPerRow, i % SlotsPerRow);
+		InventoryGridPanel->AddChildToUniformGrid(SlotToAdd, Row, Column);
+		UE_LOG(LogTemp, Warning, TEXT("i = %d: %d, %d"), i, Row, Column);
 	}
 	//InventoryGridPanel->AddChildToUniformGrid(SlotsArray[0], 0, 0);
 
