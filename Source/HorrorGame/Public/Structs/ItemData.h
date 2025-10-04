@@ -18,4 +18,7 @@ struct FItemData
 
 	UPROPERTY(VisibleAnywhere)
 	int32 MaxStackAmount = 0;
+
+	UPROPERTY(VisibleAnywhere)
+	bool bCanBeUsed = true;
 };
