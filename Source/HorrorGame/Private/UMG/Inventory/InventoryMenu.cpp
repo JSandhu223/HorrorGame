@@ -41,7 +41,8 @@ void UInventoryMenu::OpenDropDownMenu(UInventorySlot* InventorySlot)
 			((InventorySlot->GetRow() + 1) * FMath::TruncToInt32(PaddingMargins.Top + PaddingMargins.Bottom + InventorySlot->GetDesiredSize().Y)) - 10
 		)
 	);
-	
+
+	DropDownBP->UpdateMenu(InventorySlot);
 	DropDownBP->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 	CloseDropDownMenuButton->SetVisibility(ESlateVisibility::Visible);
 }
