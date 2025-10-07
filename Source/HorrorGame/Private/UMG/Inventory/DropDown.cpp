@@ -17,15 +17,18 @@ void UDropDown::NativeConstruct()
 
 void UDropDown::UpdateMenu(UInventorySlot* InventorySlot)
 {
-	SlotIndex = InventorySlot->GetIndex();
-
-	bool bCanUse = PlayerRef->GetInventoryComp()->GetItemAtIndex(SlotIndex).Item.GetDefaultObject()->GetItemData().bCanBeUsed;
-	if (bCanUse)
+	this->SlotIndex = InventorySlot->GetIndex();
+	UE_LOG(LogTemp, Warning, TEXT("SlotIndex = %d"), SlotIndex);
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *PlayerRef->GetInventoryComp()->GetName());
+	FInventoryItems InventoryItem = PlayerRef->GetInventoryComp()->GetItemAtIndex(SlotIndex);
+	UE_LOG(LogTemp, Warning, TEXT("Item Name: %s"), *InventoryItem.Item->GetName());
+	//bool bCanUse = PlayerRef->GetInventoryComp()->GetItemAtIndex(SlotIndex).Item.GetDefaultObject()->GetItemData().bCanBeUsed;
+	/*if (bCanUse)
 	{
-		this->UseSection->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+		this->UseSection->SetVisibility(ESlateVisibility::Visible);
 	}
 	else
 	{
 		this->UseSection->SetVisibility(ESlateVisibility::Collapsed);
-	}
+	}*/
 }

@@ -89,5 +89,11 @@ void UInventorySlot::SetIndex(int IndexToSet)
 
 void UInventorySlot::OnSlotButtonRelease()
 {
+	TSubclassOf<AInventoryItem> ItemRef = PlayerRef->GetInventoryComp()->GetItemAtIndex(this->Index).Item;
+	if (!UKismetSystemLibrary::IsValidClass(ItemRef))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot open drop down menu on empty inventory slot!"));
+		return;
+	}
 	InventoryMenuRef->OpenDropDownMenu(this);
 }
