@@ -22,13 +22,13 @@ void UDropDown::UpdateMenu(UInventorySlot* InventorySlot)
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *PlayerRef->GetInventoryComp()->GetName());
 	FInventoryItems InventoryItem = PlayerRef->GetInventoryComp()->GetItemAtIndex(SlotIndex);
 	UE_LOG(LogTemp, Warning, TEXT("Item Name: %s"), *InventoryItem.Item->GetName());
-	//bool bCanUse = PlayerRef->GetInventoryComp()->GetItemAtIndex(SlotIndex).Item.GetDefaultObject()->GetItemData().bCanBeUsed;
-	/*if (bCanUse)
+	bool bCanUse = PlayerRef->GetInventoryComp()->GetItemAtIndex(SlotIndex).Item.GetDefaultObject()->GetItemData().bCanBeUsed;
+	if (bCanUse)
 	{
 		this->UseSection->SetVisibility(ESlateVisibility::Visible);
 	}
 	else
 	{
 		this->UseSection->SetVisibility(ESlateVisibility::Collapsed);
-	}*/
+	}
 }
